@@ -9,7 +9,7 @@ export const LINES: Line[] = ["242", "244", "246"];
 export const REGENERATE_ABOVE = 0.1;
 
 export const evidenceRefs = (evidence: EvidenceRow[]) =>
-  new Map<string, EvidenceRef>(evidence.map((e) => [e.external_id, { id: e.external_id, project: e.project, created_at: e.created_at, excerpt: e.excerpt }]));
+  new Map<string, EvidenceRef>(evidence.map((e) => [e.external_id, { id: e.external_id, project: e.project, created_at: e.created_at, excerpt: e.excerpt, title: e.title }]));
 export const taxYearRange = (ty: TaxYear) => ({ start: ty.start, end: ty.end, year: ty.year });
 
 // Write a new immutable version of a section, link it to the one it replaces and to its evidence.

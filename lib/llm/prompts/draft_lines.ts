@@ -20,7 +20,7 @@ If evidence is thin, write fewer sentences rather than filling gaps.`;
 function draftPrompt(line: Line, focus: string): Prompt<DraftInput, DraftOutput> {
   return {
     name: `draft_line_${line}`,
-    version: 1,
+    version: 2,
     model: "main",
     maxTokens: 16000,
     toolName: "submit_section",
@@ -31,7 +31,7 @@ Limit: ${LINE_LIMITS[line].words} words. ${focus}
 ${STYLE}`,
     buildUser: (i) =>
       `Tax year ${i.taxYear}. Project: ${i.project.title}\n${i.project.summary}\n\nCriteria assessment:\n${i.criteria}\n\nEvidence:\n\n` +
-      i.evidence.map((e) => sourceItem({ id: e.id, kind: e.kind, date: e.date, tags: e.tags.join(",") }, e.excerpt)).join("\n\n"),
+      i.evidence.map((e) => sourceItem({ id: e.id, kind: e.kind, date: e.date, title: e.title, tags: e.tags.join(",") }, e.excerpt)).join("\n\n"),
   };
 }
 

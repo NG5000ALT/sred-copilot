@@ -32,6 +32,15 @@ describe("checkSection", () => {
   });
   it("treats digits inside identifiers as names, not numbers", () => {
     expect(run("242", "INT8 on a Cortex-A72 board kept FP32 layers at 42 ms.", ["e1"]).sentences[0].supported).toBe(true);
+    expect(run("242", "The BRT-7 assay per SOP-021 ran at 42 ms.", ["e1"]).sentences[0].supported).toBe(true);
+    expect(run("242", "Drying at -31 C failed.", ["e1"]).sentences[0].reasons).toContain("number_not_in_evidence:31");
+    expect(run("242", "In run 1 and lot 2619 latency was 42 ms.", ["e1"]).sentences[0].supported).toBe(true);
+  });
+  it("accepts numbers from the cited record's title", () => {
+    const withTitle = new Map(ev);
+    withTitle.set("e4", { id: "e4", project: "p1", created_at: "2026-03-01", excerpt: "Pilot failed.", title: "Move from 96-well to 384-well" });
+    const r = checkSection({ line: "242", projectId: "p1", evidence: withTitle, taxYear: ty, sentences: [{ text: "Scaling 96-well to 384-well failed.", evidence_ids: ["e4"] }] });
+    expect(r.sentences[0].supported).toBe(true);
   });
   it("allows the tax year", () => {
     expect(run("244", "In 2026 the team measured 42 ms.", ["e1"]).sentences[0].supported).toBe(true);

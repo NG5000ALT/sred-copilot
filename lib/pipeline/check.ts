@@ -2,7 +2,7 @@ import { BANNED_PHRASES, LINE_LIMITS, type Line } from "@/lib/sred/rules";
 
 export type DraftSentence = { text: string; evidence_ids: string[] };
 export type CheckedSentence = DraftSentence & { supported: boolean; reasons: string[] };
-export type EvidenceRef = { id: string; project: string | null; created_at: string; excerpt: string };
+export type EvidenceRef = { id: string; project: string | null; created_at: string; excerpt: string; title?: string | null };
 
 export type CheckInput = {
   line: Line;
@@ -19,8 +19,9 @@ export type CheckResult = {
   fail_rate: number;
 };
 
-// Digits inside identifiers (Cortex-A72, FP32, INT8, LV-118) are names, not quantities.
-const NUMBER = /(?<![A-Za-z0-9.])\d[\d,]*(?:\.\d+)?(?![A-Za-z]*\d)/g;
+// Digits inside identifiers (Cortex-A72, FP32, INT8, BRT-7, SOP-021) and labels ("run 3", "lot 2619")
+// are names, not quantities. A lone minus is kept, so "-29 C" still counts as 29.
+const NUMBER = /(?<![A-Za-z0-9.])(?<![A-Za-z]-)(?<!\b(?:run|lot|experiment|exp|step|phase|round|trial|version|line)\s)\d[\d,]*(?:\.\d+)?(?![A-Za-z]*\d)/gi;
 const norm = (n: string) => n.replace(/,/g, "").replace(/\.0+$/, "");
 export const numbersIn = (s: string) => new Set((s.match(NUMBER) ?? []).map(norm));
 export const countWords = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);
@@ -39,7 +40,8 @@ export function checkSection(input: CheckInput): CheckResult {
       else if (line === "244" && (ev.created_at < taxYear.start || ev.created_at > taxYear.end)) reasons.push(`out_of_year:${id}`);
       else cited.push(ev);
     }
-    const citedNumbers = new Set(cited.flatMap((e) => [...numbersIn(e.excerpt)]));
+    // The cited record's title is part of the record (e.g. an epic named "96-well to 384-well").
+    const citedNumbers = new Set(cited.flatMap((e) => [...numbersIn(`${e.title ?? ""} ${e.excerpt}`)]));
     for (const n of numbersIn(s.text)) {
       if (n === String(taxYear.year)) continue; // naming the tax year is not a factual claim
       if (!citedNumbers.has(n)) reasons.push(`number_not_in_evidence:${n}`);
