@@ -11,14 +11,22 @@ import { buildLines, type PayrollPerson } from "./expenditures";
 
 export const claimable = (p: ProjectRow) => p.status === "eligible" || (p.status === "borderline" && p.user_decision === "accepted");
 
-// Stage 7 (PLAN 8.7). Overrides from a previous run are carried over, never discarded.
+// Stage 7 (PLAN 8.7). Overrides are carried over, never discarded: from lines of this run, and
+// from a previous run via the tax year's carryover (keyed by Jira epic).
 export async function expenditures(ctx: Ctx) {
   const { repo, taxYear } = ctx;
-  const old = await repo.list("expenditure_line", { tax_year: taxYear.id });
-  const overrides = new Map(old.filter((l) => l.time_share_override != null).map((l) => [`${l.person}|${l.project}`, l.time_share_override as number]));
+  const all = await repo.list<ProjectRow>("project", { tax_year: taxYear.id });
+  const byEpic = new Map(all.map((p) => [p.seed_epics[0], p.id]));
+  const overrides = new Map<string, number>();
+  for (const [k, v] of Object.entries(taxYear.carryover?.overrides ?? {})) {
+    const [person, epic] = k.split("|");
+    if (byEpic.has(epic)) overrides.set(`${person}|${byEpic.get(epic)}`, v);
+  }
+  for (const l of await repo.list("expenditure_line", { tax_year: taxYear.id }))
+    if (l.time_share_override != null) overrides.set(`${l.person}|${l.project}`, l.time_share_override as number);
   await repo.remove("expenditure_line", { tax_year: taxYear.id });
 
-  const projects = new Set((await repo.list<ProjectRow>("project", { tax_year: taxYear.id })).filter(claimable).map((p) => p.id));
+  const projects = new Set(all.filter(claimable).map((p) => p.id));
   const people = (await repo.list("person", { company: ctx.company.id })).filter((p) => p.salary != null).map((p): PayrollPerson => ({
     id: p.external_id as string, name: p.name as string, salary: p.salary as number,
     employment_type: p.employment_type as PayrollPerson["employment_type"], arm_length: !!p.arm_length, specified_employee: !!p.specified_employee,

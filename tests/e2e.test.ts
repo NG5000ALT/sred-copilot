@@ -144,6 +144,21 @@ describe("analyze_tax_year end to end (mocked model)", () => {
     expect(await repo("org_other").count("project")).toBe(0);
   });
 
+  it("keeps overrides and version history when the analysis runs again", async () => {
+    const r = repo("org_e2e");
+    const [ty] = await r.list("tax_year", {});
+    const [line] = await r.list("expenditure_line", { person: "bo" });
+    await r.update(line.id, { time_share_override: 0.5 });
+    const before = await r.count("claim_section", { tax_year: ty.id });
+    await r.create("job", { kind: "analyze_tax_year", payload: { tax_year: ty.id }, status: "queued", created_at: new Date().toISOString(), progress: {} });
+    await runJob((await claimNextJob())!, new FixtureConnector("mini", root));
+
+    const [again] = await r.list("expenditure_line", { person: "bo" });
+    expect(again.time_share_override).toBe(0.5);
+    expect(await r.count("claim_section", { tax_year: ty.id })).toBe(before * 2);
+    expect(await r.count("claim_section", { tax_year: ty.id, head: true })).toBe(before);
+  });
+
   it("renders every signed-in page from the pipeline output", async () => {
     const r = repo("org_e2e");
     const [rd] = (await r.list("project", {})).filter((p) => (p.title as string).startsWith("Sub-10"));

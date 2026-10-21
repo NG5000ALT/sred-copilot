@@ -35,7 +35,7 @@ export async function cluster(ctx: Ctx) {
   for (const e of epics) {
     const p = await repo.create<ProjectRow>("project", {
       tax_year: taxYear.id, title: e.title ?? e.external_id, summary: e.body.slice(0, 400), seed_epics: [e.external_id],
-      status: "candidate", user_decision: null,
+      status: "candidate", user_decision: taxYear.carryover?.decisions[e.external_id] ?? null,
     });
     projectByEpic.set(e.external_id, p.id);
     projects.push(p);

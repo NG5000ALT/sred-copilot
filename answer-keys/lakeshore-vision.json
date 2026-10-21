@@ -1,7 +1,7 @@
 {
   "company": "lakeshore-vision",
   "taxYear": 2026,
-  "writtenBefore": "Written by hand from the seeded project table (PLAN 6.1) after the fixtures were generated and before any pipeline code existed. See git history.",
+  "writtenBefore": "Drafted by Claude Code from the seeded project table (PLAN 6.1) after the fixtures were generated, and committed before the pipeline was ever run on this company. Review pending by the team. See git history.",
   "projects": [
     { "code": "A1", "title": "Low-latency defect detection on ARM", "jiraEpicKeys": ["LV-12"], "expected": "eligible",
       "members": ["priya.n", "omar.k", "li.w", "sam.r", "ivan.p"],

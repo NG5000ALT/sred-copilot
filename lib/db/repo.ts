@@ -127,3 +127,9 @@ export async function claimNextJob(): Promise<Row | null> {
   );
   return claimed ?? null;
 }
+
+// Single worker: anything still "running" at startup was interrupted by a restart or deploy.
+export async function failInterruptedJobs(): Promise<number> {
+  const rows = await q<Row>("UPDATE job SET status = 'failed', error = 'Interrupted by a restart. Run the analysis again.', updated_at = <string>time::now() WHERE status = 'running' RETURN AFTER", {});
+  return rows.length;
+}

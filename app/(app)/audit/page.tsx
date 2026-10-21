@@ -55,7 +55,7 @@ export default async function Audit({ searchParams }: { searchParams: Promise<{ 
             <tbody>
               {sections.map((x) => (
                 <tr key={x.id} className="border-b border-rule/60">
-                  <td className="py-2">{title.get(x.project)}</td><td>{x.line}</td>
+                  <td className="py-2">{title.get(x.project) ?? <span className="text-meta">Earlier analysis</span>}</td><td>{x.line}</td>
                   <td>v{x.version}{x.head ? " (current)" : ""}{x.version > 1 ? ", supersedes v" + (x.version - 1) : ""}</td>
                   <td>{x.author === "user" ? "Person" : "Model"}</td><td>{x.created_at.slice(0, 16).replace("T", " ")}</td>
                 </tr>

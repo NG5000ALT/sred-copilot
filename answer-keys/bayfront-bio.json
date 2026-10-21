@@ -1,7 +1,7 @@
 {
   "company": "bayfront-bio",
   "taxYear": 2026,
-  "writtenBefore": "Written by hand from the seeded project table (PLAN 6.2) after the fixtures were generated and before any pipeline code existed. See git history.",
+  "writtenBefore": "Drafted by Claude Code from the seeded project table (PLAN 6.2) after the fixtures were generated, and committed before the pipeline was ever run on this company. Review pending by the team. See git history.",
   "projects": [
     { "code": "B1", "title": "Room-temperature stable lyophilized enzyme formulation", "jiraEpicKeys": ["BB-5"], "expected": "eligible",
       "members": ["aisha.b", "tran.q", "omid.f", "marc.d"],

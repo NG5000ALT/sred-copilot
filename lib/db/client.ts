@@ -3,7 +3,9 @@ import path from "node:path";
 import { createNodeEngines } from "@surrealdb/node";
 import { Surreal, createRemoteEngines } from "surrealdb";
 
-let pending: Promise<Surreal> | null = null;
+// Cached on globalThis: Next bundles instrumentation and routes separately, and dev reloads
+// re-evaluate modules, but an embedded database must be opened once per process.
+const g = globalThis as { __sredDb?: Promise<Surreal> | null };
 
 async function connect(): Promise<Surreal> {
   const url = process.env.SURREAL_URL || "mem://";
@@ -19,16 +21,16 @@ async function connect(): Promise<Surreal> {
 
 // One connection per process; the schema is applied idempotently on first use.
 export function getDb(): Promise<Surreal> {
-  pending ??= connect().catch((e) => {
-    pending = null;
+  g.__sredDb ??= connect().catch((e) => {
+    g.__sredDb = null;
     throw e;
   });
-  return pending;
+  return g.__sredDb;
 }
 
 export async function closeDb() {
-  if (!pending) return;
-  const db = await pending;
-  pending = null;
+  if (!g.__sredDb) return;
+  const db = await g.__sredDb;
+  g.__sredDb = null;
   await db.close();
 }

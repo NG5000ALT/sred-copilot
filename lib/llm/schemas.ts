@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { TAGS } from "@/lib/sred/rules";
+import { EXCLUSIONS, TAGS } from "@/lib/sred/rules";
 
 export const TagOutput = z.object({
   items: z.array(z.object({
@@ -30,7 +30,7 @@ export const ClassifyOutput = z.object({
   systematic: Score,
   advancement: Score,
   records: Score,
-  exclusions_hit: z.array(z.string()).describe("Statutory exclusions this project's work falls under, copied from the list given. Empty if none."),
+  exclusions_hit: z.array(z.enum(EXCLUSIONS.value as [string, ...string[]])).describe("Statutory exclusions that the project's core work falls under. Empty if none. Side tasks (packaging, a routine check inside an experiment) do not count."),
   summary: z.string().describe("One or two plain sentences describing the project"),
 });
 export type ClassifyOutput = z.infer<typeof ClassifyOutput>;

@@ -3,8 +3,25 @@ import { parsePayrollCsv } from "@/lib/connectors/csv";
 import { chunk, type Ctx } from "./context";
 import { stripPii } from "./excerpt";
 
-const DERIVED = ["source_item", "evidence", "project", "criteria_assessment", "claim_section", "expenditure_line",
-  "risk_flag", "eval_result", "supports", "worked_on", "cites", "supersedes"] as const;
+// Rows a re-run replaces. Claim sections and their supersedes/cites edges are never deleted:
+// earlier drafts and human edits stay in the version history, marked as no longer current.
+const DERIVED = ["source_item", "evidence", "project", "criteria_assessment", "expenditure_line",
+  "risk_flag", "eval_result", "supports", "worked_on"] as const;
+
+export type Carryover = { decisions: Record<string, "accepted" | "rejected">; overrides: Record<string, number> };
+
+// Human decisions survive a re-run, keyed by Jira epic (project ids change every run).
+async function snapshotHumanWork(ctx: Ctx): Promise<Carryover> {
+  const { repo, taxYear } = ctx;
+  const projects = await repo.list("project", { tax_year: taxYear.id });
+  const epic = new Map(projects.map((p) => [p.id, (p.seed_epics as string[])[0]]));
+  const decisions: Carryover["decisions"] = {};
+  for (const p of projects) if (p.user_decision) decisions[epic.get(p.id)!] = p.user_decision as "accepted" | "rejected";
+  const overrides: Carryover["overrides"] = {};
+  for (const l of await repo.list("expenditure_line", { tax_year: taxYear.id }))
+    if (l.time_share_override != null && epic.has(l.project as string)) overrides[`${l.person}|${epic.get(l.project as string)}`] = l.time_share_override as number;
+  return { decisions, overrides };
+}
 
 export function toSourceRow(taxYear: string, i: NormalizedSourceItem) {
   return {
@@ -19,6 +36,10 @@ export function toSourceRow(taxYear: string, i: NormalizedSourceItem) {
 export async function ingest(ctx: Ctx) {
   const { repo, connector, taxYear, company } = ctx;
   if (taxYear.status === "frozen") throw new Error("Tax year is frozen; unfreeze is not supported");
+  const carryover = await snapshotHumanWork(ctx);
+  await repo.update(taxYear.id, { carryover });
+  ctx.taxYear.carryover = carryover;
+  for (const s of await repo.list("claim_section", { tax_year: taxYear.id, head: true })) await repo.update(s.id, { head: false, superseded_by_rerun: true });
   for (const t of DERIVED) await repo.remove(t, { tax_year: taxYear.id });
 
   const existing = new Map((await repo.list("person", { company: company.id })).map((p) => [p.external_id as string, p]));

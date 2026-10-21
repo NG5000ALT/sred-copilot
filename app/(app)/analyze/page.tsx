@@ -23,8 +23,9 @@ export default async function Analyze() {
       </PageHeader>
       <p className="mb-8 max-w-prose">
         Reads every record from {company.name} for the tax year, finds candidate projects, scores them against
-        the SR&amp;ED criteria and drafts lines 242, 244 and 246 for the ones that qualify. Running it again replaces
-        this year&apos;s results; time-share overrides are kept.
+        the SR&amp;ED criteria and drafts lines 242, 244 and 246 for the ones that qualify. Running it again redrafts
+        this year&apos;s results. Borderline decisions and time-share overrides are kept, and earlier drafts and
+        edits stay in the version history on the Audit page.
       </p>
       {taxYear.status === "frozen" && <p className="mb-6 rounded-md bg-wash p-3">This claim is frozen, so it cannot be analyzed again.</p>}
       <Stepper initial={job ? { status: job.status as string, stage: job.stage as string, progress: (job.progress ?? {}) as Record<string, Record<string, number>>, error: (job.error as string) ?? null } : null} />

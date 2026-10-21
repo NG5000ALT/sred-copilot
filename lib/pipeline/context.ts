@@ -3,7 +3,10 @@ import type { SourceConnector } from "@/lib/connectors/types";
 import type { EvidenceForPrompt } from "@/lib/llm/prompts/types";
 
 export type Company = Row & { name: string; slug: string };
-export type TaxYear = Row & { year: number; start: string; end: string; status: "draft" | "frozen"; company: string };
+export type TaxYear = Row & {
+  year: number; start: string; end: string; status: "draft" | "frozen"; company: string;
+  carryover?: { decisions: Record<string, "accepted" | "rejected">; overrides: Record<string, number> };
+};
 export type SourceItemRow = Row & {
   tax_year: string; external_id: string; kind: string; url: string; author: string | null; created_at: string;
   title?: string; body: string; epic_key?: string | null; issue_type?: string; assignee?: string | null; parent?: string | null; channel?: string;

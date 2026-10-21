@@ -19,7 +19,8 @@ export default async function Evaluation() {
       <PageHeader title="Evaluation against the answer key" />
       <p className="mb-8 max-w-prose">
         The answer key for {company.name} lists which seeded projects should qualify and who worked on them.
-        It was written by the team by hand before the pipeline existed (see the git history), for a fictional company.
+        It was drafted from the project plan and committed before the pipeline was first run on this fictional
+        company (see the git history).
       </p>
       <dl className="grid grid-cols-2 gap-x-8 gap-y-6 md:grid-cols-5">
         {[

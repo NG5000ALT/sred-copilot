@@ -1,8 +1,9 @@
-import { claimNextJob, repo } from "@/lib/db/repo";
+import { claimNextJob, failInterruptedJobs, repo } from "@/lib/db/repo";
 import { runJob } from "@/lib/pipeline/run";
 
 const POLL_MS = 2000;
 let running = false;
+let recovered = false;
 
 export async function tick() {
   const job = await claimNextJob();
@@ -23,6 +24,11 @@ export function startWorker() {
   running = true;
   const loop = async () => {
     try {
+      if (!recovered) {
+        const n = await failInterruptedJobs();
+        if (n) console.log(`[worker] marked ${n} interrupted job(s) failed`);
+        recovered = true;
+      }
       while (await tick());
     } catch (e) {
       console.error("[worker] poll error", e);

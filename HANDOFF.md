@@ -5,7 +5,7 @@ Status as of 2026-10-21. Everything below "Done" is committed and covered by `pn
 ## Done (milestones M1 to M9, minus the items under "Needs you")
 - Next.js 16 app, Clerk 7 org roles enforced server-side on every page, route and action (`lib/auth/roles.ts`).
 - SurrealDB schema, org-scoped repo, graph edges (`supports`, `worked_on`, `cites`, `supersedes`), isolation tests.
-- Synthetic fixtures for both companies (128 and 81 items, ~40% noise, payroll CSVs) and answer keys, committed before any pipeline code.
+- Synthetic fixtures for both companies (128 and 81 items, ~40% noise, payroll CSVs). Answer keys drafted by Claude Code from PLAN 6.1/6.2 and committed before the pipeline was ever run on either company.
 - Fixture connector, Era MCP connector (unverified, see below), payroll CSV parser with validation.
 - LLM client with forced-tool Zod output, retry on invalid output, prompt caching, `model_run` logging; all 8 prompts.
 - All pipeline stages including the classify agent loop (5 read-only lookups), checker with regeneration, expenditures with overrides, rule and model risk flags, evaluation.
@@ -20,7 +20,8 @@ Status as of 2026-10-21. Everything below "Done" is committed and covered by `pn
 4. **GitHub + Render**: create the repo (public for Devpost), push, create the Render web service from `render.yaml`, set the secret env vars. One web service runs the worker in-process, so no paid worker is required. Set the live URL as a Clerk allowed origin.
 5. **Era**: get access, put the MCP URLs in `.env`, run `pnpm era:tools`, then fix tool names in `lib/connectors/era/allowlist.ts` and the field mapping in `lib/connectors/era/index.ts` (both are placeholders). Switch with `CONNECTOR=era`.
 6. **Agent Memory**: not built (first item on the cut list). The "what we knew when" story uses plain SurrealDB version chains and the freeze snapshot.
-7. **Manual items from PLAN**: user interviews, demo video, Devpost page (`docs/devpost.md` is a starting draft), Boast research.
+7. **Answer keys**: review `answer-keys/*.json` and take ownership (adjust expected calls or members if you disagree), before the first real run. Update `writtenBefore` if you change them.
+8. **Manual items from PLAN**: user interviews, demo video, Devpost page (`docs/devpost.md` is a starting draft), Boast research.
 
 ## Deliberate cuts and shortcuts
 - shadcn/ui not used: small Tailwind components in `components/ui.tsx` instead.

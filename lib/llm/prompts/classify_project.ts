@@ -17,7 +17,7 @@ export const classifyProject: Prompt<Input, ClassifyOutput> = {
 Score each criterion 0 (no evidence), 1 (weak), 2 (clear) and cite the evidence ids that support the score.
 Criteria:
 ${CRITERIA.map((c) => `- ${c.key}: ${c.question}`).join("\n")}
-Statutory exclusions (list any the work falls under):
+Statutory exclusions (list one only if the project's core work is excluded, not because of a side task):
 ${EXCLUSIONS.value.map((e) => `- ${e}`).join("\n")}
 Routine engineering with known solutions, style or UX changes, data migrations and routine
 testing do not show technological uncertainty. Failed experiments support eligibility.
