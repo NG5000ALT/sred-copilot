@@ -21,7 +21,7 @@ const people: CompanyFixture["people"] = [
   { external_id: "tom.b", name: "Tom Brennan", title: "Customer Support Lead", salary: 72000, employment_type: "employee", arm_length: true, specified_employee: false },
   { external_id: "nina.v", name: "Nina Varga", title: "Operations & People", salary: 80000, employment_type: "employee", arm_length: true, specified_employee: false },
   { external_id: "ivan.p", name: "Ivan Petrov", title: "Firmware Contractor", salary: 60000, employment_type: "contractor", arm_length: true, specified_employee: false },
-].map((p) => ({ ...p, jira: p.external_id, slack: p.external_id }));
+].map((p) => ({ ...p, employment_type: p.employment_type as "employee" | "contractor", jira: p.external_id, slack: p.external_id }));
 
 const channels = { general: "C01", "ml-edge": "C02", "ml-research": "C03", eng: "C04", sales: "C05", support: "C06", design: "C07", data: "C08", hiring: "C09" };
 

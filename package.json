@@ -7,11 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "worker": "tsx worker/index.ts",
+    "worker": "tsx --env-file-if-exists=.env worker/index.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "db:apply": "tsx scripts/apply-schema.ts",
-    "fixtures": "tsx scripts/generate-fixtures.ts"
+    "db:apply": "tsx --env-file-if-exists=.env scripts/apply-schema.ts",
+    "fixtures": "tsx scripts/generate-fixtures.ts",
+    "era:tools": "tsx --env-file-if-exists=.env scripts/era-list-tools.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

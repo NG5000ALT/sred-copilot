@@ -30,4 +30,5 @@ export interface SourceConnector {
   getItem(externalId: string): Promise<NormalizedSourceItem | null>; // used by the agent loop
   searchDocs?(query: string): Promise<NormalizedSourceItem[]>;
   getThread?(externalId: string): Promise<NormalizedSourceItem[]>;
+  payrollCsv?(): Promise<string | null>; // demo datasets ship a payroll export
 }
