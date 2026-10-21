@@ -8,7 +8,7 @@ export const craReviewer: Prompt<Input, ReviewerOutput> = {
   name: "cra_reviewer",
   version: 1,
   model: "main",
-  maxTokens: 3000,
+  maxTokens: 16000,
   toolName: "submit_flags",
   toolDescription: "Submit up to 6 risk flags. Do not rewrite the draft.",
   schema: ReviewerOutput,

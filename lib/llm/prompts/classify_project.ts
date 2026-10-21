@@ -9,7 +9,7 @@ export const classifyProject: Prompt<Input, ClassifyOutput> = {
   name: "classify_project",
   version: 1,
   model: "main",
-  maxTokens: 4000,
+  maxTokens: 16000,
   toolName: "submit_assessment",
   toolDescription: "Submit the criterion scores for this project.",
   schema: ClassifyOutput,

@@ -55,9 +55,14 @@ export async function classifyOne(ctx: Ctx, project: ProjectRow, useTools = true
   let calls: { name: string; args: unknown }[] = [];
 
   if (useTools && CRITERIA.some((c) => out[c.key].score === 1)) {
-    const r = await runAgentLoop(classifyProject, { ...input(), canLookUp: true }, lookupTools(ctx, project), rctx, MAX_TOOL_CALLS);
-    out = r.output;
-    calls = r.calls;
+    // A failed lookup loop keeps the first-pass scores rather than failing the whole analysis.
+    try {
+      const r = await runAgentLoop(classifyProject, { ...input(), canLookUp: true }, lookupTools(ctx, project), rctx, MAX_TOOL_CALLS);
+      out = r.output;
+      calls = r.calls;
+    } catch (e) {
+      console.warn(`[classify] lookup loop failed for ${project.title}; keeping first-pass scores:`, (e as Error).message);
+    }
     evidence = await projectEvidence(ctx, project.id);
   }
 

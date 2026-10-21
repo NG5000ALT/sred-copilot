@@ -15,7 +15,7 @@ export type TagOutput = z.infer<typeof TagOutput>;
 export const AssignOutput = z.object({
   assignments: z.array(z.object({
     evidence_id: z.string(),
-    project_id: z.string().describe('A candidate project id exactly as given, or "none"'),
+    project_id: z.string().describe('A candidate project id exactly as given (e.g. LV-12), or "none"'),
   })),
 });
 

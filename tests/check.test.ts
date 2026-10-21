@@ -30,6 +30,9 @@ describe("checkSection", () => {
   it("fails a number not in cited evidence", () => {
     expect(run("246", "Latency fell to 31 ms.", ["e1"]).sentences[0].reasons).toContain("number_not_in_evidence:31");
   });
+  it("treats digits inside identifiers as names, not numbers", () => {
+    expect(run("242", "INT8 on a Cortex-A72 board kept FP32 layers at 42 ms.", ["e1"]).sentences[0].supported).toBe(true);
+  });
   it("allows the tax year", () => {
     expect(run("244", "In 2026 the team measured 42 ms.", ["e1"]).sentences[0].supported).toBe(true);
   });

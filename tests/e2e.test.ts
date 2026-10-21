@@ -43,18 +43,28 @@ const text = (req: Anthropic.MessageCreateParamsNonStreaming) => {
   return typeof c === "string" ? c : JSON.stringify(c);
 };
 const items = (t: string) => [...t.matchAll(/<source_item id="([^"]+)"[^>]*>\n([\s\S]*?)\n<\/source_item>/g)].map((m) => ({ id: m[1], body: m[2] }));
-const reply = (name: string, input: unknown): Anthropic.Message => ({
-  id: "msg", type: "message", role: "assistant", model: "fake", stop_reason: "tool_use", stop_sequence: null,
-  content: [{ type: "tool_use", id: "tu", name, input } as Anthropic.ToolUseBlock],
+const message = (content: unknown[], stop: string): Anthropic.Message => ({
+  id: "msg", type: "message", role: "assistant", model: "fake", stop_reason: stop, stop_sequence: null, content,
   usage: { input_tokens: 10, output_tokens: 5 } as Anthropic.Usage,
 } as Anthropic.Message);
+// Structured outputs come back as JSON text; agent-loop turns come back as tool_use blocks.
+let agentLoop = false;
+const reply = (name: string, input: unknown): Anthropic.Message => agentLoop
+  ? message([{ type: "tool_use", id: "tu", name, input }], "tool_use")
+  : message([{ type: "text", text: JSON.stringify(input) }], "end_turn");
+const PROMPTS: [string, string][] = [
+  ["Tag each source item", "submit_tags"], ["Assign each evidence item", "submit_assignments"],
+  ["Assess one candidate project", "submit_assessment"], ["Draft Form T661", "submit_section"], ["Act as a skeptical", "submit_flags"],
+];
 
 // Deterministic stand-in for the model, keyed on the forced tool.
 const fake = async (req: Anthropic.MessageCreateParamsNonStreaming): Promise<Anthropic.Message> => {
-  let tool = (req.tool_choice as { name?: string }).name!;
+  const sys = (req.system as Anthropic.TextBlockParam[]).map((b) => b.text).join("\n");
+  let tool = PROMPTS.find(([marker]) => sys.includes(marker))?.[1] ?? "unknown";
   const t = text(req);
-  // Agent loop: one read-only lookup first, then submit.
-  if (req.tool_choice?.type === "any") {
+  // Agent loop (tools offered): one read-only lookup first, then submit.
+  agentLoop = !!req.tools?.length;
+  if (agentLoop) {
     if (req.messages.length === 1) return reply("get_jira_issue", { key: "MN-12" });
     tool = "submit_assessment";
   }
@@ -64,7 +74,7 @@ const fake = async (req: Anthropic.MessageCreateParamsNonStreaming): Promise<Ant
       excerpt: i.id === "MN-11" ? "a paraphrase that is not in the body" : relevant ? i.body.slice(0, 60) : "", confidence: 0.9 };
   }) });
   if (tool === "submit_assignments") {
-    const rd = t.match(/- (project:\S+): Sub-10/)![1];
+    const rd = t.match(/- (\S+): Sub-10/)![1];
     return reply(tool, { assignments: items(t).map((i) => ({ evidence_id: i.id, project_id: /ms|LUT|bit/.test(i.body) ? rd : "none" })) });
   }
   if (tool === "submit_assessment") {

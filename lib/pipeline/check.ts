@@ -19,7 +19,8 @@ export type CheckResult = {
   fail_rate: number;
 };
 
-const NUMBER = /\d[\d,]*(?:\.\d+)?/g;
+// Digits inside identifiers (Cortex-A72, FP32, INT8, LV-118) are names, not quantities.
+const NUMBER = /(?<![A-Za-z0-9.])\d[\d,]*(?:\.\d+)?(?![A-Za-z]*\d)/g;
 const norm = (n: string) => n.replace(/,/g, "").replace(/\.0+$/, "");
 export const numbersIn = (s: string) => new Set((s.match(NUMBER) ?? []).map(norm));
 export const countWords = (s: string) => (s.trim() ? s.trim().split(/\s+/).length : 0);

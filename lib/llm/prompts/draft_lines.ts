@@ -22,7 +22,7 @@ function draftPrompt(line: Line, focus: string): Prompt<DraftInput, DraftOutput>
     name: `draft_line_${line}`,
     version: 1,
     model: "main",
-    maxTokens: 4000,
+    maxTokens: 16000,
     toolName: "submit_section",
     toolDescription: `Submit T661 line ${line} as cited sentences.`,
     schema: DraftOutput,

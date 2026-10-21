@@ -9,7 +9,7 @@ export const assignEvidence: Prompt<Input, z.infer<typeof AssignOutput>> = {
   name: "assign_evidence",
   version: 1,
   model: "fast",
-  maxTokens: 4000,
+  maxTokens: 16000,
   toolName: "submit_assignments",
   toolDescription: "Assign each evidence item to one candidate project or none.",
   schema: AssignOutput,

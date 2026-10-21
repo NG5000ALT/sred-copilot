@@ -51,8 +51,10 @@ export async function cluster(ctx: Ctx) {
   }
 
   const unlinked = evidence.filter((e) => !e.epic_key || !projectByEpic.has(e.epic_key));
-  const candidates = projects.map((p) => ({ id: p.id, title: p.title, summary: p.summary }));
-  const valid = new Set(candidates.map((c) => c.id));
+  // The model sees epic keys, not database ids: SurrealDB escapes some record ids (project:⟨0d4s…⟩)
+  // and the model echoes them back unescaped, which silently dropped assignments.
+  const candidates = projects.map((p) => ({ id: p.seed_epics[0], title: p.title, summary: p.summary }));
+  const projectOfEpic = new Map(projects.map((p) => [p.seed_epics[0], p.id]));
   for (const batch of chunk(unlinked, 30)) {
     if (!candidates.length) break;
     const out = await runPrompt(assignEvidence, { candidates, evidence: batch.map(toPrompt) },
@@ -60,9 +62,10 @@ export async function cluster(ctx: Ctx) {
     const byExt = new Map(batch.map((e) => [e.external_id, e]));
     for (const a of out.assignments) {
       const e = byExt.get(a.evidence_id);
-      if (!e || !valid.has(a.project_id)) continue;
-      await repo.update(e.id, { project: a.project_id, assigned_by: "model" });
-      await repo.relate(e.id, "supports", a.project_id, { tax_year: taxYear.id, weight: 1, assigned_by: "model" });
+      const project = projectOfEpic.get(a.project_id);
+      if (!e || !project) continue;
+      await repo.update(e.id, { project, assigned_by: "model" });
+      await repo.relate(e.id, "supports", project, { tax_year: taxYear.id, weight: 1, assigned_by: "model" });
     }
   }
 

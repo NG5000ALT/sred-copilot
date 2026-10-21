@@ -13,7 +13,8 @@
     "db:apply": "tsx --env-file-if-exists=.env scripts/apply-schema.ts",
     "fixtures": "tsx scripts/generate-fixtures.ts",
     "era:tools": "tsx --env-file-if-exists=.env scripts/era-list-tools.ts",
-    "analyze:cli": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/run-analysis.ts"
+    "analyze:cli": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/run-analysis.ts",
+    "inspect:cli": "tsx --env-file-if-exists=.env scripts/inspect-run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

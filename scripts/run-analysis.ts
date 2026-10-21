@@ -26,6 +26,6 @@ for (const p of await r.list("project", { tax_year: ty.id })) {
   const expected = key?.projects.find((k) => k.jiraEpicKeys.some((e) => (p.seed_epics as string[]).includes(e)));
   console.log(`${expected?.code ?? "--"}  ${String(p.status).padEnd(22)} expected ${String(expected?.expected ?? "n/a").padEnd(13)} ${p.title}`);
 }
-const runs = await r.list("model_run", { tax_year: ty.id });
+const runs = (await r.list("model_run", { tax_year: ty.id })).filter((x) => Date.parse(x.created_at as string) >= t0);
 console.log(`${runs.length} model calls, ${runs.reduce((a, x) => a + (x.tokens_in as number) + (x.tokens_out as number), 0)} tokens, ${Math.round((Date.now() - t0) / 1000)} s`);
 await closeDb();
