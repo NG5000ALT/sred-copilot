@@ -1,0 +1,13 @@
+person_id,name,title,annual_salary_cad,employment_type,arm_length,specified_employee
+helen.a,Helen Arsenault,"CEO",160000,employee,false,true
+marc.d,Marc Desrosiers,"CSO",158000,employee,false,true
+aisha.b,Aisha Bello,"Senior Formulation Scientist",112000,employee,true,false
+tran.q,Quang Tran,"Research Associate",72000,employee,true,false
+sofia.r,Sofia Romano,"Assay Development Scientist",98000,employee,true,false
+eli.m,Eli Murphy,"Lab Technician",58000,employee,true,false
+grace.o,Grace Okafor,"QC Analyst",66000,employee,true,false
+paul.n,Paul Nguyen,"QA Manager",92000,employee,true,false
+ines.c,Ines Costa,"IT and Systems Coordinator",70000,employee,true,false
+derek.w,Derek Wong,"Business Development",88000,employee,true,false
+lena.k,Lena Kowalski,"Operations Manager",76000,employee,true,false
+omid.f,Omid Farahani,"Lyophilization Consultant",45000,contractor,true,false

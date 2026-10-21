@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "company": {
+    "name": "Bayfront Biologics Inc.",
+    "industry": "Biotech: enzyme reagents for diagnostic labs",
+    "city": "Hamilton, ON",
+    "size": 12,
+    "fiscal_year_end": "12-31",
+    "description": "Enzyme reagents for diagnostic labs. Synthetic demo company."
+  }
+}

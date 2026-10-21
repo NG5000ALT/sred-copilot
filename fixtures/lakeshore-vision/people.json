@@ -1,0 +1,133 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "people": [
+    {
+      "external_id": "ben.h",
+      "name": "Ben Hollis",
+      "title": "CEO",
+      "jira": "ben.h",
+      "slack": "ben.h"
+    },
+    {
+      "external_id": "sam.r",
+      "name": "Sam Rahimi",
+      "title": "CTO",
+      "jira": "sam.r",
+      "slack": "sam.r"
+    },
+    {
+      "external_id": "priya.n",
+      "name": "Priya Natarajan",
+      "title": "ML Lead",
+      "jira": "priya.n",
+      "slack": "priya.n"
+    },
+    {
+      "external_id": "omar.k",
+      "name": "Omar Khalil",
+      "title": "Embedded Systems Engineer",
+      "jira": "omar.k",
+      "slack": "omar.k"
+    },
+    {
+      "external_id": "li.w",
+      "name": "Li Wei",
+      "title": "Machine Learning Engineer",
+      "jira": "li.w",
+      "slack": "li.w"
+    },
+    {
+      "external_id": "mei.c",
+      "name": "Mei Chen",
+      "title": "Research Engineer, Vision",
+      "jira": "mei.c",
+      "slack": "mei.c"
+    },
+    {
+      "external_id": "raj.s",
+      "name": "Raj Sandhu",
+      "title": "Data Engineer",
+      "jira": "raj.s",
+      "slack": "raj.s"
+    },
+    {
+      "external_id": "ana.g",
+      "name": "Ana Gomes",
+      "title": "Data Labelling Contractor",
+      "jira": "ana.g",
+      "slack": "ana.g"
+    },
+    {
+      "external_id": "dana.m",
+      "name": "Dana Moreau",
+      "title": "Backend Engineer",
+      "jira": "dana.m",
+      "slack": "dana.m"
+    },
+    {
+      "external_id": "kev.o",
+      "name": "Kevin Osei",
+      "title": "Backend Engineer",
+      "jira": "kev.o",
+      "slack": "kev.o"
+    },
+    {
+      "external_id": "felix.t",
+      "name": "Felix Tremblay",
+      "title": "Frontend Engineer",
+      "jira": "felix.t",
+      "slack": "felix.t"
+    },
+    {
+      "external_id": "jo.p",
+      "name": "Jo Park",
+      "title": "Product Designer",
+      "jira": "jo.p",
+      "slack": "jo.p"
+    },
+    {
+      "external_id": "zoe.l",
+      "name": "Zoe Laurent",
+      "title": "Product Manager",
+      "jira": "zoe.l",
+      "slack": "zoe.l"
+    },
+    {
+      "external_id": "lucas.f",
+      "name": "Lucas Ferreira",
+      "title": "QA Engineer",
+      "jira": "lucas.f",
+      "slack": "lucas.f"
+    },
+    {
+      "external_id": "carla.d",
+      "name": "Carla Dubois",
+      "title": "Account Executive",
+      "jira": "carla.d",
+      "slack": "carla.d"
+    },
+    {
+      "external_id": "tom.b",
+      "name": "Tom Brennan",
+      "title": "Customer Support Lead",
+      "jira": "tom.b",
+      "slack": "tom.b"
+    },
+    {
+      "external_id": "nina.v",
+      "name": "Nina Varga",
+      "title": "Operations & People",
+      "jira": "nina.v",
+      "slack": "nina.v"
+    },
+    {
+      "external_id": "ivan.p",
+      "name": "Ivan Petrov",
+      "title": "Firmware Contractor",
+      "jira": "ivan.p",
+      "slack": "ivan.p"
+    }
+  ]
+}

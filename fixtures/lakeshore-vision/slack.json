@@ -1,0 +1,477 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "items": [
+    {
+      "external_id": "slack:C02:1770832920.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1770832920000100",
+      "author": "li.w",
+      "created_at": "2026-02-11T18:02:00.000Z",
+      "body": "PTQ is a bust for small defects. 41 ms but we lose 23 points of mAP on the under-8 px bucket. The papers we based this on only report classification.",
+      "channel": "ml-edge",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C02:1770833700.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1770833700000100",
+      "author": "omar.k",
+      "created_at": "2026-02-11T18:15:00.000Z",
+      "body": "Expected something but not that much. Want me to try pruning so we stay FP32?",
+      "channel": "ml-edge",
+      "parent": "1770832920.000100"
+    },
+    {
+      "external_id": "slack:C02:1770835200.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1770835200000100",
+      "author": "priya.n",
+      "created_at": "2026-02-11T18:40:00.000Z",
+      "body": "Yes. And Li, can you write up a QAT plan with distillation? Nobody seems to have published QAT numbers for tiny-object detectors on CPU-only ARM, so we have to find out.",
+      "channel": "ml-edge",
+      "parent": "1770832920.000100"
+    },
+    {
+      "external_id": "slack:C02:1772809920.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1772809920000100",
+      "author": "omar.k",
+      "created_at": "2026-03-06T15:12:00.000Z",
+      "body": "Pruning results: 88 ms at 50%, 61 ms at 70% but mAP 86.2. Not going to make 50 ms this way.",
+      "channel": "ml-edge",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C02:1772811000.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1772811000000100",
+      "author": "sam.r",
+      "created_at": "2026-03-06T15:30:00.000Z",
+      "body": "OK. Let's put everything on QAT. If QAT fails too we tell the two pilot customers they need the GPU box.",
+      "channel": "ml-edge",
+      "parent": "1772809920.000100"
+    },
+    {
+      "external_id": "slack:C02:1775241000.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1775241000000100",
+      "author": "li.w",
+      "created_at": "2026-04-03T18:30:00.000Z",
+      "body": "QAT + distillation run 4: 46 ms, 91.8 mAP. First time we are under 50 ms and within a point of baseline.",
+      "channel": "ml-edge",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C02:1776703500.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1776703500000100",
+      "author": "omar.k",
+      "created_at": "2026-04-20T16:45:00.000Z",
+      "body": "Heads up: under continuous load the board throttles to 58 ms after 2 hours. Heatsink rev + 3 threads holds 48 ms for 8 hours.",
+      "channel": "ml-edge",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C03:1774026600.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C03/p1774026600000100",
+      "author": "mei.c",
+      "created_at": "2026-03-20T17:10:00.000Z",
+      "body": "Fine-tune on the chrome set is bad: recall 0.62, FPR 31%. The model calls every highlight a scratch.",
+      "channel": "ml-research",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C03:1774027800.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C03/p1774027800000100",
+      "author": "priya.n",
+      "created_at": "2026-03-20T17:30:00.000Z",
+      "body": "Not surprised. None of the few-shot papers test on specular surfaces. Let's see if synthetic highlights help.",
+      "channel": "ml-research",
+      "parent": "1774026600.000100"
+    },
+    {
+      "external_id": "slack:C03:1780078200.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C03/p1780078200000100",
+      "author": "mei.c",
+      "created_at": "2026-05-29T18:10:00.000Z",
+      "body": "Masking + prototypical head: recall 0.81, FPR 9%. Masking is doing most of the work. Still short of 0.90 recall.",
+      "channel": "ml-research",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C03:1780131900.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C03/p1780131900000100",
+      "author": "sam.r",
+      "created_at": "2026-05-30T09:05:00.000Z",
+      "body": "Good progress. Let's keep A2 going into Q3 with the extra 60 images.",
+      "channel": "ml-research",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C04:1771943400.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C04/p1771943400000100",
+      "author": "dana.m",
+      "created_at": "2026-02-24T14:30:00.000Z",
+      "body": "Stripe usage reporting is live in staging. Pretty much the textbook setup.",
+      "channel": "eng",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C04:1773418800.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C04/p1773418800000100",
+      "author": "kev.o",
+      "created_at": "2026-03-13T16:20:00.000Z",
+      "body": "Billing migration done. Closing LV-60 next week after first invoice run.",
+      "channel": "eng",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C07:1778065200.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C07/p1778065200000100",
+      "author": "jo.p",
+      "created_at": "2026-05-06T11:00:00.000Z",
+      "body": "Posted the new palette and type scale for the dashboard refresh. Going for calmer greys and one accent.",
+      "channel": "design",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C07:1781277000.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C07/p1781277000000100",
+      "author": "felix.t",
+      "created_at": "2026-06-12T15:10:00.000Z",
+      "body": "Dashboard redesign is behind the flag in prod. Dark mode too.",
+      "channel": "design",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C08:1784560200.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C08/p1784560200000100",
+      "author": "raj.s",
+      "created_at": "2026-07-20T15:10:00.000Z",
+      "body": "Feedback labels are noisy, ~12% disagreement with manual labels. Unclear whether we can trust them for training. Might try a noise-robust loss later.",
+      "channel": "data",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C08:1784624400.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C08/p1784624400000100",
+      "author": "priya.n",
+      "created_at": "2026-07-21T09:00:00.000Z",
+      "body": "Let's park it until A2 is done. Keep the export running.",
+      "channel": "data",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C02:1765378800.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C02/p1765378800000100",
+      "author": "priya.n",
+      "created_at": "2025-12-10T15:00:00.000Z",
+      "body": "Kickoff idea for next year: can we get the detector under 50 ms on the ARM board? Two pilots asked.",
+      "channel": "ml-edge",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1786539060.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1786539060000100",
+      "author": "sam.r",
+      "created_at": "2026-08-12T12:51:00.000Z",
+      "body": "Reminder: expense reports due Friday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1772184420.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1772184420000100",
+      "author": "nina.v",
+      "created_at": "2026-02-27T09:27:00.000Z",
+      "body": "Posted the QA engineer role on the job boards.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1782473700.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1782473700000100",
+      "author": "nina.v",
+      "created_at": "2026-06-26T11:35:00.000Z",
+      "body": "Posted the QA engineer role on the job boards.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1784195040.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1784195040000100",
+      "author": "nina.v",
+      "created_at": "2026-07-16T09:44:00.000Z",
+      "body": "Offer accepted for the support role, starts in two weeks.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1790331360.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1790331360000100",
+      "author": "ben.h",
+      "created_at": "2026-09-25T10:16:00.000Z",
+      "body": "Benefits enrollment closes at the end of the month.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1772640480.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1772640480000100",
+      "author": "ben.h",
+      "created_at": "2026-03-04T16:08:00.000Z",
+      "body": "Northgate Plastics is comparing us with a bigger vendor, price is the main question.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1775143620.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1775143620000100",
+      "author": "sam.r",
+      "created_at": "2026-04-02T15:27:00.000Z",
+      "body": "Office is closed Monday for the holiday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1769347320.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1769347320000100",
+      "author": "nina.v",
+      "created_at": "2026-01-25T13:22:00.000Z",
+      "body": "Benefits enrollment closes at the end of the month.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1772972580.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1772972580000100",
+      "author": "nina.v",
+      "created_at": "2026-03-08T12:23:00.000Z",
+      "body": "Can someone do a technical interview Wednesday at 2?",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1782125520.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1782125520000100",
+      "author": "ben.h",
+      "created_at": "2026-06-22T10:52:00.000Z",
+      "body": "Lunch and learn on Thursday: how our support queue works.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1770468840.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1770468840000100",
+      "author": "ben.h",
+      "created_at": "2026-02-07T12:54:00.000Z",
+      "body": "Can someone send me the latest case study PDF for Erie Fasteners?",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1775128500.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1775128500000100",
+      "author": "carla.d",
+      "created_at": "2026-04-02T11:15:00.000Z",
+      "body": "Can someone send me the latest case study PDF for Northgate Plastics?",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1782124620.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1782124620000100",
+      "author": "carla.d",
+      "created_at": "2026-06-22T10:37:00.000Z",
+      "body": "Trade show booth confirmed for the Toronto manufacturing expo.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1770897000.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1770897000000100",
+      "author": "mei.c",
+      "created_at": "2026-02-12T11:50:00.000Z",
+      "body": "Interview notes for the backend candidate are in the doc.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1773221760.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1773221760000100",
+      "author": "li.w",
+      "created_at": "2026-03-11T09:36:00.000Z",
+      "body": "Can someone look at my PR for the config refactor?",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1783426860.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1783426860000100",
+      "author": "carla.d",
+      "created_at": "2026-07-07T12:21:00.000Z",
+      "body": "Guelph Diagnostics is comparing us with a bigger vendor, price is the main question.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1770886980.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1770886980000100",
+      "author": "nina.v",
+      "created_at": "2026-02-12T09:03:00.000Z",
+      "body": "Two strong candidates for the backend role, scheduling onsites.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1784299800.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1784299800000100",
+      "author": "nina.v",
+      "created_at": "2026-07-17T14:50:00.000Z",
+      "body": "Offer accepted for the support role, starts in two weeks.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1790429040.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1790429040000100",
+      "author": "sam.r",
+      "created_at": "2026-09-26T13:24:00.000Z",
+      "body": "Can someone do a technical interview Wednesday at 2?",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1776851100.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1776851100000100",
+      "author": "sam.r",
+      "created_at": "2026-04-22T09:45:00.000Z",
+      "body": "Can someone do a technical interview Wednesday at 2?",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1788441360.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1788441360000100",
+      "author": "carla.d",
+      "created_at": "2026-09-03T13:16:00.000Z",
+      "body": "Signed Oakridge Clinical for a 6 month pilot!",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1768477080.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1768477080000100",
+      "author": "sam.r",
+      "created_at": "2026-01-15T11:38:00.000Z",
+      "body": "Lunch and learn on Thursday: how our support queue works.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1782568500.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1782568500000100",
+      "author": "priya.n",
+      "created_at": "2026-06-27T13:55:00.000Z",
+      "body": "Interview notes for the backend candidate are in the doc.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1772534400.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1772534400000100",
+      "author": "carla.d",
+      "created_at": "2026-03-03T10:40:00.000Z",
+      "body": "Can someone send me the latest case study PDF for Erie Fasteners?",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C05:1779701820.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C05/p1779701820000100",
+      "author": "carla.d",
+      "created_at": "2026-05-25T09:37:00.000Z",
+      "body": "Oakridge Clinical is comparing us with a bigger vendor, price is the main question.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1788777480.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1788777480000100",
+      "author": "nina.v",
+      "created_at": "2026-09-07T10:38:00.000Z",
+      "body": "Can someone do a technical interview Wednesday at 2?",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C09:1768652340.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C09/p1768652340000100",
+      "author": "sam.r",
+      "created_at": "2026-01-17T12:19:00.000Z",
+      "body": "Two strong candidates for the backend role, scheduling onsites.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1780413180.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1780413180000100",
+      "author": "nina.v",
+      "created_at": "2026-06-02T15:13:00.000Z",
+      "body": "Benefits enrollment closes at the end of the month.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C01:1774268820.000100",
+      "kind": "slack_message",
+      "url": "https://lakeshore-vision.example/slack/archives/C01/p1774268820000100",
+      "author": "li.w",
+      "created_at": "2026-03-23T12:27:00.000Z",
+      "body": "I'll be at the meetup tonight if anyone wants to come.",
+      "channel": "general",
+      "parent": null
+    }
+  ]
+}

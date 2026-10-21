@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "company": {
+    "name": "Lakeshore Vision Inc.",
+    "industry": "Software: computer-vision quality inspection",
+    "city": "Toronto, ON",
+    "size": 18,
+    "fiscal_year_end": "12-31",
+    "description": "Computer-vision quality inspection software for small manufacturers. Synthetic demo company."
+  }
+}

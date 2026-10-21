@@ -1,0 +1,357 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "items": [
+    {
+      "external_id": "slack:C12:1774368600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C12/p1774368600000100",
+      "author": "tran.q",
+      "created_at": "2026-03-24T16:10:00.000Z",
+      "body": "Run 1 is in: 72% after 8 weeks at 37 C. Trehalose alone isn't going to get us there.",
+      "channel": "formulation",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C12:1774369800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C12/p1774369800000100",
+      "author": "aisha.b",
+      "created_at": "2026-03-24T16:30:00.000Z",
+      "body": "Expected. The sucrose/dextran run reads out in two weeks. If that fails too I want to try an aggregation suppressor.",
+      "channel": "formulation",
+      "parent": "1774368600.000100"
+    },
+    {
+      "external_id": "slack:C12:1776867600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C12/p1776867600000100",
+      "author": "omid.f",
+      "created_at": "2026-04-22T14:20:00.000Z",
+      "body": "Collapse temp for the new matrix is -29 C, we were drying at -25 C. Moved primary drying to -32 C.",
+      "channel": "formulation",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C12:1782234600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C12/p1782234600000100",
+      "author": "aisha.b",
+      "created_at": "2026-06-23T17:10:00.000Z",
+      "body": "Run 3: 94% at 8 weeks / 37 C. First formulation over 90%.",
+      "channel": "formulation",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C12:1782236400.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C12/p1782236400000100",
+      "author": "marc.d",
+      "created_at": "2026-06-23T17:40:00.000Z",
+      "body": "Great result. Let's not oversell it until the real-time data agrees.",
+      "channel": "formulation",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C13:1780675800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C13/p1780675800000100",
+      "author": "sofia.r",
+      "created_at": "2026-06-05T16:10:00.000Z",
+      "body": "384-well pilot: Z' 0.41, edge wells are a mess. Need to fix evaporation before this is usable.",
+      "channel": "assay",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C13:1784301600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C13/p1784301600000100",
+      "author": "eli.m",
+      "created_at": "2026-07-17T15:20:00.000Z",
+      "body": "Seal + 12 uL got us to Z' 0.62.",
+      "channel": "assay",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C17:1774609800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C17/p1774609800000100",
+      "author": "ines.c",
+      "created_at": "2026-03-27T11:10:00.000Z",
+      "body": "LIMS import finished. Training sessions next week.",
+      "channel": "it",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C18:1786528800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C18/p1786528800000100",
+      "author": "grace.o",
+      "created_at": "2026-08-12T10:00:00.000Z",
+      "body": "Lot 2619 released after retest. CoA uploaded.",
+      "channel": "qc",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C18:1786530600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C18/p1786530600000100",
+      "author": "paul.n",
+      "created_at": "2026-08-12T10:30:00.000Z",
+      "body": "Thanks. Routine OOS investigation closed, no CAPA needed.",
+      "channel": "qc",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1776090180.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1776090180000100",
+      "author": "helen.a",
+      "created_at": "2026-04-13T14:23:00.000Z",
+      "body": "Call with Guelph Diagnostics lab manager, they want samples of the RT kit.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1774367760.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1774367760000100",
+      "author": "aisha.b",
+      "created_at": "2026-03-24T15:56:00.000Z",
+      "body": "Reviewing the SOP updates today.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1773748920.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1773748920000100",
+      "author": "derek.w",
+      "created_at": "2026-03-17T12:02:00.000Z",
+      "body": "Distributor in Quebec wants a price list.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1785594120.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1785594120000100",
+      "author": "helen.a",
+      "created_at": "2026-08-01T14:22:00.000Z",
+      "body": "Call with Maple Components lab manager, they want samples of the RT kit.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1788787620.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1788787620000100",
+      "author": "tran.q",
+      "created_at": "2026-09-07T13:27:00.000Z",
+      "body": "Booked the plate reader for tomorrow morning.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1779035820.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1779035820000100",
+      "author": "helen.a",
+      "created_at": "2026-05-17T16:37:00.000Z",
+      "body": "Booth at the diagnostics conference is confirmed.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1775811600.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1775811600000100",
+      "author": "lena.k",
+      "created_at": "2026-04-10T09:00:00.000Z",
+      "body": "Lab is closed Friday afternoon for the fire drill.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1789231500.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1789231500000100",
+      "author": "derek.w",
+      "created_at": "2026-09-12T16:45:00.000Z",
+      "body": "Hamilton Castings is renewing their annual order.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C16:1772548620.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C16/p1772548620000100",
+      "author": "marc.d",
+      "created_at": "2026-03-03T14:37:00.000Z",
+      "body": "Scheduling interviews for the lab technician role.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C16:1785164700.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C16/p1785164700000100",
+      "author": "lena.k",
+      "created_at": "2026-07-27T15:05:00.000Z",
+      "body": "Offer out for the formulation scientist position.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1769938740.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1769938740000100",
+      "author": "helen.a",
+      "created_at": "2026-02-01T09:39:00.000Z",
+      "body": "Welcome to our new lab tech!",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1776613260.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1776613260000100",
+      "author": "tran.q",
+      "created_at": "2026-04-19T15:41:00.000Z",
+      "body": "Booked the plate reader for tomorrow morning.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1778682780.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1778682780000100",
+      "author": "lena.k",
+      "created_at": "2026-05-13T14:33:00.000Z",
+      "body": "Reminder: lab coat laundry pickup is Tuesday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1782211680.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1782211680000100",
+      "author": "aisha.b",
+      "created_at": "2026-06-23T10:48:00.000Z",
+      "body": "Booked the plate reader for tomorrow morning.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C16:1790080800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C16/p1790080800000100",
+      "author": "lena.k",
+      "created_at": "2026-09-22T12:40:00.000Z",
+      "body": "Posted the QC analyst role.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1782387240.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1782387240000100",
+      "author": "helen.a",
+      "created_at": "2026-06-25T11:34:00.000Z",
+      "body": "Call with Northgate Plastics lab manager, they want samples of the RT kit.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1787574060.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1787574060000100",
+      "author": "helen.a",
+      "created_at": "2026-08-24T12:21:00.000Z",
+      "body": "Reminder: lab coat laundry pickup is Tuesday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1787151660.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1787151660000100",
+      "author": "derek.w",
+      "created_at": "2026-08-19T15:01:00.000Z",
+      "body": "Booth at the diagnostics conference is confirmed.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1773488340.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1773488340000100",
+      "author": "derek.w",
+      "created_at": "2026-03-14T11:39:00.000Z",
+      "body": "Call with Maple Components lab manager, they want samples of the RT kit.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1772464320.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1772464320000100",
+      "author": "helen.a",
+      "created_at": "2026-03-02T15:12:00.000Z",
+      "body": "Team lunch on Thursday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1784972100.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1784972100000100",
+      "author": "lena.k",
+      "created_at": "2026-07-25T09:35:00.000Z",
+      "body": "Team lunch on Thursday.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C15:1782041700.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C15/p1782041700000100",
+      "author": "derek.w",
+      "created_at": "2026-06-21T11:35:00.000Z",
+      "body": "Distributor in Quebec wants a price list.",
+      "channel": "sales",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C16:1767619740.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C16/p1767619740000100",
+      "author": "lena.k",
+      "created_at": "2026-01-05T13:29:00.000Z",
+      "body": "Scheduling interviews for the lab technician role.",
+      "channel": "hiring",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1777291800.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1777291800000100",
+      "author": "aisha.b",
+      "created_at": "2026-04-27T12:10:00.000Z",
+      "body": "I'll be at the seminar this afternoon.",
+      "channel": "general",
+      "parent": null
+    },
+    {
+      "external_id": "slack:C11:1782227940.000100",
+      "kind": "slack_message",
+      "url": "https://bayfront-bio.example/slack/archives/C11/p1782227940000100",
+      "author": "lena.k",
+      "created_at": "2026-06-23T15:19:00.000Z",
+      "body": "Team lunch on Thursday.",
+      "channel": "general",
+      "parent": null
+    }
+  ]
+}

@@ -11,8 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:apply": "tsx scripts/apply-schema.ts",
-    "fixtures": "tsx scripts/generate-fixtures.ts",
-    "payroll": "tsx scripts/seed-payroll.ts"
+    "fixtures": "tsx scripts/generate-fixtures.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.137.0",

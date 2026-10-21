@@ -1,0 +1,19 @@
+person_id,name,title,annual_salary_cad,employment_type,arm_length,specified_employee
+ben.h,Ben Hollis,"CEO",165000,employee,false,true
+sam.r,Sam Rahimi,"CTO",175000,employee,false,true
+priya.n,Priya Natarajan,"ML Lead",148000,employee,true,false
+omar.k,Omar Khalil,"Embedded Systems Engineer",128000,employee,true,false
+li.w,Li Wei,"Machine Learning Engineer",122000,employee,true,false
+mei.c,Mei Chen,"Research Engineer, Vision",118000,employee,true,false
+raj.s,Raj Sandhu,"Data Engineer",112000,employee,true,false
+ana.g,Ana Gomes,"Data Labelling Contractor",54000,contractor,true,false
+dana.m,Dana Moreau,"Backend Engineer",115000,employee,true,false
+kev.o,Kevin Osei,"Backend Engineer",108000,employee,true,false
+felix.t,Felix Tremblay,"Frontend Engineer",105000,employee,true,false
+jo.p,Jo Park,"Product Designer",98000,employee,true,false
+zoe.l,Zoe Laurent,"Product Manager",112000,employee,true,false
+lucas.f,Lucas Ferreira,"QA Engineer",92000,employee,true,false
+carla.d,Carla Dubois,"Account Executive",85000,employee,true,false
+tom.b,Tom Brennan,"Customer Support Lead",72000,employee,true,false
+nina.v,Nina Varga,"Operations & People",80000,employee,true,false
+ivan.p,Ivan Petrov,"Firmware Contractor",60000,contractor,true,false

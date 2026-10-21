@@ -1,0 +1,25 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate-fixtures.ts",
+  "note": "Fictional company. No real people or data.",
+  "items": [
+    {
+      "external_id": "doc:a1-experiment-log",
+      "kind": "doc_page",
+      "url": "https://lakeshore-vision.example/drive/a1-experiment-log",
+      "author": "li.w",
+      "created_at": "2026-04-08T12:00:00.000Z",
+      "title": "A1 ARM latency experiment log",
+      "body": "Experiment log, project A1 (low-latency defect detection).\n2026-01-23 Baseline FP32: 180 ms, 92.4 mAP, 81.0 mAP under 8 px.\n2026-02-11 Exp 1 PTQ INT8 (500 calibration images): 41 ms, 84.1 mAP, 58.3 mAP under 8 px. Failed on accuracy.\n2026-03-06 Exp 2 pruning 50%: 88 ms, 90.9 mAP. Pruning 70%: 61 ms, 86.2 mAP. Failed on latency.\n2026-04-03 Exp 3 QAT + distillation, first block FP16: 46 ms, 91.8 mAP, 79.6 mAP under 8 px. Passed.\n2026-04-06 Seeds x3: 91.6 to 91.9 mAP, 45 to 47 ms.\nOpen question: whether the same recipe holds for the reflective-surface model in A2."
+    },
+    {
+      "external_id": "doc:a2-results",
+      "kind": "doc_page",
+      "url": "https://lakeshore-vision.example/drive/a2-results",
+      "author": "mei.c",
+      "created_at": "2026-06-05T12:00:00.000Z",
+      "title": "A2 reflective surfaces results table",
+      "body": "A2 results. Dataset: 180 labelled chrome and aluminium images, 5-fold cross-validation.\nExp 1 fine-tune: recall 0.62, FPR 31%.\nExp 2 synthetic highlights (2,000 images): recall 0.66, FPR 18%.\nExp 3 masking + prototypical head: recall 0.81, FPR 9%.\nMasking only: FPR 14%.\nConclusion so far: highlight masking matters more than model choice. Recall target of 0.90 not reached."
+    }
+  ]
+}
