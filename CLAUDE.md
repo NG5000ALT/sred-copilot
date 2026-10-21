@@ -28,3 +28,11 @@ sentence cites source evidence. Draft for professional review. Never files anyth
 - Keep components small. Server components by default.
 - After each milestone: run `pnpm typecheck && pnpm test`, then commit with a
   clear message. Git history is our proof of what was built during Build Week.
+
+## Build notes (decisions made during the build)
+- Next 16 renamed middleware to `proxy.ts`; it only sets up the Clerk session. Authorization is
+  `requirePermission()` in every page, route and action.
+- No shadcn/ui; small Tailwind components in `components/ui.tsx`. Design tokens in `app/globals.css`.
+- Citation ids are source external ids (e.g. `LV-118#c1`), shown in the UI as numbered chips.
+- `RUN_WORKER_IN_WEB=true` runs the worker inside the web process (needed for embedded SurrealDB).
+- Tests use embedded `mem://` SurrealDB and `setProvider()` fakes for the model. See HANDOFF.md.

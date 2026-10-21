@@ -1,0 +1,45 @@
+# Render blueprint. Default: one web service that also runs the job worker (RUN_WORKER_IN_WEB=true).
+# To split the worker out (paid background worker plan), set RUN_WORKER_IN_WEB=false on the web
+# service and uncomment the worker below. Either way SURREAL_URL must point at a real SurrealDB
+# server (e.g. Surreal Cloud), because embedded storage is not shared between processes or deploys.
+services:
+  - type: web
+    name: sred-copilot
+    runtime: node
+    plan: starter
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build
+    startCommand: pnpm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: RUN_WORKER_IN_WEB
+        value: "true"
+      - key: CONNECTOR
+        value: fixture
+      - key: SURREAL_NS
+        value: sred
+      - key: SURREAL_DB
+        value: app
+      - key: MODEL_FAST
+        value: claude-haiku-5-5
+      - key: MODEL_MAIN
+        value: claude-sonnet-5-5
+      - { key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, sync: false }
+      - { key: CLERK_SECRET_KEY, sync: false }
+      - { key: SURREAL_URL, sync: false }
+      - { key: SURREAL_USER, sync: false }
+      - { key: SURREAL_PASS, sync: false }
+      - { key: ANTHROPIC_API_KEY, sync: false }
+      - { key: ERA_JIRA_MCP_URL, sync: false }
+      - { key: ERA_SLACK_MCP_URL, sync: false }
+      - { key: ERA_DOCS_MCP_URL, sync: false }
+      - { key: ERA_API_KEY, sync: false }
+
+#  - type: worker
+#    name: sred-copilot-worker
+#    runtime: node
+#    plan: starter
+#    buildCommand: corepack enable && pnpm install --frozen-lockfile
+#    startCommand: pnpm worker
+#    envVars: (same as above, without the Clerk keys)
