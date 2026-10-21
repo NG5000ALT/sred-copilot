@@ -8,7 +8,7 @@ export class FixtureConnector implements SourceConnector {
   private people: NormalizedPerson[];
   private dir: string;
 
-  constructor(slug: string, root = path.join(process.cwd(), "fixtures")) {
+  constructor(slug: string, root = path.join(/*turbopackIgnore: true*/ process.cwd(), "fixtures")) {
     if (!/^[a-z0-9-]+$/.test(slug)) throw new Error(`Bad fixture slug ${slug}`);
     this.dir = path.join(root, slug);
     const read = (f: string) => JSON.parse(readFileSync(path.join(this.dir, f), "utf8"));
