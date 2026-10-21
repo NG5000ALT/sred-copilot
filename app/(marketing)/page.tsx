@@ -47,19 +47,20 @@ export default function Landing() {
         </figure>
       </section>
 
-      <section className="mt-20 grid gap-8 border-t border-rule pt-10 md:grid-cols-3">
-        <div>
-          <h2 className="font-semibold">Every sentence cites evidence</h2>
-          <p className="mt-2 leading-relaxed">A checker rejects sentences without a source, numbers that are not in the cited record, and words over the CRA limit. Failures stay visible in red.</p>
-        </div>
-        <div>
-          <h2 className="font-semibold">Conservative by default</h2>
-          <p className="mt-2 leading-relaxed">Eligibility thresholds live in code, not in a prompt. Borderline work waits for a person to accept it.</p>
-        </div>
-        <div>
-          <h2 className="font-semibold">Read-only and auditable</h2>
-          <p className="mt-2 leading-relaxed">Connectors can only read. Every model call is logged, every edit is a new version, and a frozen claim shows what was known when it was drafted.</p>
-        </div>
+      <section className="mt-20 max-w-3xl">
+        <h2 className="font-serif text-2xl font-semibold">What a reviewer can rely on</h2>
+        <dl className="mt-6 divide-y divide-rule border-y border-rule">
+          {[
+            ["Every sentence cites evidence", "A checker rejects sentences without a source, numbers that are not in the cited record, and words over the CRA limit. Failures stay visible in red."],
+            ["Conservative by default", "Eligibility thresholds live in code, not in a prompt. Borderline work waits for a person to accept it."],
+            ["Read-only and auditable", "Connectors can only read. Every model call is logged, every edit is a new version, and a frozen claim shows what was known when it was drafted."],
+          ].map(([term, detail]) => (
+            <div key={term} className="grid gap-1 py-5 md:grid-cols-[15rem_1fr] md:gap-6">
+              <dt className="font-semibold">{term}</dt>
+              <dd className="max-w-prose leading-relaxed">{detail}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     </main>
   );

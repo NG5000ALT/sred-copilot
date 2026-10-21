@@ -31,7 +31,7 @@ export function EvidenceProvider({ evidence, children }: { evidence: EvidenceVie
               </div>
               <button onClick={() => setOpenId(null)} className="rounded px-2 py-1 hover:bg-wash" aria-label="Close evidence">Close</button>
             </div>
-            <blockquote className="mt-6 border-l-2 border-accent pl-4 font-serif text-lg leading-relaxed">{e.excerpt}</blockquote>
+            <blockquote className="mt-6 rounded-md bg-wash px-4 py-3 font-serif text-lg leading-relaxed">{e.excerpt}</blockquote>
             {e.tags.length > 0 && <p className="mt-4 text-sm text-meta">Tagged: {e.tags.join(", ")}</p>}
             <p className="mt-4 text-sm">Source id: <code>{e.id}</code></p>
             {e.url && <a href={e.url} target="_blank" rel="noreferrer" className="mt-auto pt-6 font-medium text-accent underline underline-offset-4">Open in source tool</a>}

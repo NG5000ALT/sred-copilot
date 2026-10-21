@@ -102,7 +102,8 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                     <p className="text-sm text-meta">{LINE_LIMITS[line].prompt}</p>
                     <span className="flex items-center gap-3 text-sm">
                       <span className={sec.word_count > limit ? "font-medium text-fail" : "text-meta"}>{sec.word_count} / {limit} words</span>
-                      <span className="text-meta">v{sec.version}, {sec.author === "user" ? "edited" : <DraftLabel />}</span>
+                      <span className="text-meta">Version {sec.version}</span>
+                      {sec.author === "user" ? <span className="text-meta">Edited by a person</span> : <DraftLabel />}
                     </span>
                   </div>
                   <div className="mt-1 h-1 w-full rounded bg-rule"><div className={`h-1 rounded ${sec.word_count > limit ? "bg-fail" : "bg-accent"}`} style={{ width: `${Math.min(100, (sec.word_count / limit) * 100)}%` }} /></div>

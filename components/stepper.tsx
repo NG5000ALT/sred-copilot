@@ -42,10 +42,10 @@ export function Stepper({ initial }: { initial: Job | null }) {
           const counts = job.progress?.[s.key];
           const state = counts ? "done" : job.status === "running" && i === current ? "running" : job.status === "failed" && i === current ? "failed" : "waiting";
           return (
-            <li key={s.key} className="grid grid-cols-[1.5rem_8rem_1fr] items-baseline gap-3 border-b border-rule/60 py-3">
-              <span aria-hidden className={{ done: "text-eligible", running: "text-accent", failed: "text-fail", waiting: "text-rule" }[state]}>
-                {{ done: "●", running: "◐", failed: "✕", waiting: "○" }[state]}
-              </span>
+            <li key={s.key} className="grid grid-cols-[1rem_7rem_1fr] items-start gap-3 border-b border-rule/60 py-3">
+              <span aria-hidden className={`mt-1 inline-block h-2.5 w-2.5 rounded-full ${{
+                done: "bg-eligible", running: "animate-pulse bg-accent", failed: "bg-fail", waiting: "border border-meta/40",
+              }[state]}`} />
               <span className={state === "waiting" ? "text-meta" : "font-medium"}>{s.label}</span>
               <span className={state === "failed" ? "text-fail" : ""}>
                 {counts ? s.describe(counts) : state === "running" ? "Working" : state === "failed" ? job.error : ""}
