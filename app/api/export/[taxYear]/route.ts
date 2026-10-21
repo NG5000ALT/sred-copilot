@@ -4,6 +4,7 @@ import { workspace } from "@/lib/data";
 import type { ClaimSectionRow, EvidenceRow, ProjectRow } from "@/lib/pipeline/context";
 import { claimable } from "@/lib/pipeline/stages";
 import { totals, type ExpenditureLine } from "@/lib/pipeline/expenditures";
+import { describeReason } from "@/lib/pipeline/check";
 
 const HEADER = "DRAFT, not filed, for CPA review. Synthetic demo data. Not tax advice.";
 const csvCell = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;

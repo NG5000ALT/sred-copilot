@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { can, requirePermission } from "@/lib/auth/roles";
 import { workspace } from "@/lib/data";
 import { CRITERIA, LINE_LIMITS } from "@/lib/sred/rules";
+import { describeReason } from "@/lib/pipeline/check";
 import type { ClaimSectionRow, EvidenceRow, ProjectRow } from "@/lib/pipeline/context";
 import { Chip, EvidenceProvider, type EvidenceView } from "@/components/evidence";
 import { Button, DraftLabel, Empty, PageHeader, StatusBadge } from "@/components/ui";
@@ -107,14 +108,14 @@ export default async function ProjectPage({ params, searchParams }: { params: Pr
                   <div className="mt-1 h-1 w-full rounded bg-rule"><div className={`h-1 rounded ${sec.word_count > limit ? "bg-fail" : "bg-accent"}`} style={{ width: `${Math.min(100, (sec.word_count / limit) * 100)}%` }} /></div>
                   <p className="mt-4 max-w-[68ch] font-serif text-[1.07rem] leading-[1.75]">
                     {sec.sentences.map((x, i) => (
-                      <span key={i} className={x.supported ? "" : "rounded bg-fail-wash text-fail decoration-fail"} title={x.supported ? undefined : `Unsupported: ${x.reasons.join(", ")}`}>
+                      <span key={i} className={x.supported ? "" : "rounded bg-fail-wash text-fail decoration-fail"} title={x.supported ? undefined : `Unsupported: ${x.reasons.map(describeReason).join("; ")}`}>
                         {x.text}{x.evidence_ids.map((id) => <Chip key={id} id={id} />)}{" "}
                       </span>
                     ))}
                   </p>
                   {bad > 0 && (
                     <ul className="mt-3 space-y-1 text-sm text-fail">
-                      {sec.sentences.filter((x) => !x.supported).map((x, i) => <li key={i}>&ldquo;{x.text.slice(0, 70)}{x.text.length > 70 ? "…" : ""}&rdquo; {x.reasons.join(", ").replaceAll("_", " ")}</li>)}
+                      {sec.sentences.filter((x) => !x.supported).map((x, i) => <li key={i}>&ldquo;{x.text.slice(0, 70)}{x.text.length > 70 ? "…" : ""}&rdquo; {x.reasons.map(describeReason).join("; ")}</li>)}
                     </ul>
                   )}
                 </div>

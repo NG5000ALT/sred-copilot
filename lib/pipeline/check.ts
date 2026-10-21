@@ -56,3 +56,17 @@ export function checkSection(input: CheckInput): CheckResult {
     fail_rate: sentences.length ? failed / sentences.length : 0,
   };
 }
+
+// Plain-language wording of a checker reason, for the UI and the export.
+export function describeReason(r: string): string {
+  const [code, arg] = r.split(/:(.*)/s);
+  switch (code) {
+    case "no_citation": return "cites no evidence";
+    case "unknown_evidence": return `cites ${arg}, which is not in the evidence`;
+    case "foreign_evidence": return `cites ${arg} from another project`;
+    case "out_of_year": return `cites ${arg} from outside the tax year`;
+    case "number_not_in_evidence": return `the number ${arg} is not in the cited evidence`;
+    case "banned_phrase": return `uses the overstated phrase "${arg}"`;
+    default: return r;
+  }
+}

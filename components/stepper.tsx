@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+const n = (count: number, one: string, many = `${one}s`) => `${count} ${count === 1 ? one : many}`;
+
 type Job = { status: string; stage: string; progress: Record<string, Record<string, number>>; error: string | null };
 
 const STAGES: { key: string; label: string; describe: (c: Record<string, number>) => string }[] = [
-  { key: "ingest", label: "Ingest", describe: (c) => `${c.items} items read, ${c.people} people` },
-  { key: "tag", label: "Tag", describe: (c) => `${c.evidence} evidence excerpts${c.dropped_excerpts ? `, ${c.dropped_excerpts} inexact excerpts dropped` : ""}` },
-  { key: "cluster", label: "Cluster", describe: (c) => `${c.projects} candidate projects${c.insufficient ? `, ${c.insufficient} with too little evidence` : ""}` },
+  { key: "ingest", label: "Ingest", describe: (c) => `${n(c.items, "item")} read, ${n(c.people, "person", "people")}` },
+  { key: "tag", label: "Tag", describe: (c) => `${n(c.evidence, "evidence excerpt")}${c.dropped_excerpts ? `, ${n(c.dropped_excerpts, "inexact excerpt")} dropped` : ""}` },
+  { key: "cluster", label: "Cluster", describe: (c) => `${n(c.projects, "candidate project")}${c.insufficient ? `, ${c.insufficient} with too little evidence` : ""}` },
   { key: "classify", label: "Classify", describe: (c) => `${c.eligible} eligible, ${c.borderline} borderline, ${c.not_eligible} not eligible` },
-  { key: "draft", label: "Draft", describe: (c) => `${c.drafted} projects drafted` },
+  { key: "draft", label: "Draft", describe: (c) => `${n(c.drafted, "project")} drafted` },
   { key: "check", label: "Check", describe: (c) => `${c.sentences - c.unsupported} of ${c.sentences} sentences supported` },
-  { key: "expenditures", label: "Expenditures", describe: (c) => `${c.lines} expenditure lines` },
-  { key: "risk", label: "Risk", describe: (c) => `${c.flags} risk flags` },
+  { key: "expenditures", label: "Expenditures", describe: (c) => n(c.lines, "expenditure line") },
+  { key: "risk", label: "Risk", describe: (c) => n(c.flags, "risk flag") },
   { key: "evaluate", label: "Evaluate", describe: (c) => (c.skipped ? "No answer key for this company" : `Precision ${Math.round(c.precision * 100)}%, recall ${Math.round(c.recall * 100)}%`) },
 ];
 

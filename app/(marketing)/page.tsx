@@ -31,15 +31,15 @@ export default function Landing() {
         <figure className="rounded-lg border border-rule bg-paper p-5 md:mt-2">
           <figcaption className="mb-4 flex items-baseline justify-between text-sm text-meta">
             <span>Form T661, line 242</span>
-            <span>44 / 350 words</span>
+            <span>{SPECIMEN.map((x) => x.text).join(" ").split(/\s+/).length} / 350 words</span>
           </figcaption>
           <div className="grid grid-cols-[3rem_1fr] gap-x-3">
             <span className="font-serif text-2xl text-accent">242</span>
             <p className="font-serif text-[1.05rem] leading-[1.7]">
-              {SPECIMEN.map((s) => (
+              {SPECIMEN.map((s, i) => (
                 <span key={s.cite}>
                   {s.text}
-                  <sup className="ml-0.5 rounded bg-accent-wash px-1 font-sans text-[0.7rem] font-medium text-accent">{s.cite}</sup>{" "}
+                  <sup className="ml-0.5 rounded bg-accent-wash px-1 font-sans text-[0.7rem] font-medium text-accent" title={s.cite}>{i + 1}</sup>{" "}
                 </span>
               ))}
             </p>

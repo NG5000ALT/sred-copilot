@@ -76,11 +76,11 @@ export default async function Expenditures() {
             <dl className="mt-4 space-y-2">
               {[
                 ["Qualifying salaries", t.salaries, null],
-                [`Arm's-length contracts at ${RATES.contractorShare.value * 100}%`, t.contracts, RATES.contractorShare],
-                [`Proxy overhead at ${RATES.proxyOverhead.value * 100}% of salaries`, t.proxyOverhead, RATES.proxyOverhead],
-                ["Qualifying expenditures", t.qualifying, RATES.expenditureLimit],
-                [`Refundable ITC at ${RATES.itcEnhanced.value * 100}%`, t.itcRefundable, RATES.itcEnhanced],
-                [`Non-refundable ITC at ${RATES.itcGeneral.value * 100}% above the limit`, t.itcNonRefundable, RATES.itcGeneral],
+                [`Arm's-length contracts at ${Math.round(RATES.contractorShare.value * 100)}%`, t.contracts, RATES.contractorShare],
+                [`Proxy overhead at ${Math.round(RATES.proxyOverhead.value * 100)}% of salaries`, t.proxyOverhead, RATES.proxyOverhead],
+                ["Qualifying expenditures", t.qualifying, null],
+                [`Refundable ITC at ${Math.round(RATES.itcEnhanced.value * 100)}% up to the $${RATES.expenditureLimit.value / 1e6}M limit`, t.itcRefundable, RATES.expenditureLimit],
+                [`Non-refundable ITC at ${Math.round(RATES.itcGeneral.value * 100)}% above the limit`, t.itcNonRefundable, RATES.itcGeneral],
               ].map(([label, value, rule]) => (
                 <div key={label as string} className="flex items-baseline justify-between gap-4 border-b border-rule/60 pb-2">
                   <dt>{label as string} {rule ? <UnverifiedBadge {...(rule as { verified: boolean; source: string })} /> : null}</dt>

@@ -2,7 +2,8 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import type Anthropic from "@anthropic-ai/sdk";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { renderToString } from "react-dom/server";
 import { closeDb } from "@/lib/db/client";
 import { claimNextJob, repo } from "@/lib/db/repo";
 import { FixtureConnector } from "@/lib/connectors/fixture";
@@ -12,6 +13,9 @@ import { Builder } from "@/scripts/fixture-content/builder";
 import { writeFixture } from "@/scripts/generate-fixtures";
 
 process.env.SURREAL_URL = "mem://";
+// Signed-in owner of org_e2e, for rendering the app pages server-side.
+vi.mock("@clerk/nextjs/server", () => ({ auth: async () => ({ userId: "user_test", orgId: "org_e2e", orgRole: "org:admin" }) }));
+vi.mock("@clerk/nextjs", () => ({ OrganizationProfile: () => null, CreateOrganization: () => null, OrganizationSwitcher: () => null, UserButton: () => null }));
 process.env.MODEL_FAST = "fake-fast";
 process.env.MODEL_MAIN = "fake-main";
 
@@ -138,5 +142,35 @@ describe("analyze_tax_year end to end (mocked model)", () => {
 
     expect(await r.count("model_run")).toBeGreaterThan(5);
     expect(await repo("org_other").count("project")).toBe(0);
+  });
+
+  it("renders every signed-in page from the pipeline output", async () => {
+    const r = repo("org_e2e");
+    const [rd] = (await r.list("project", {})).filter((p) => (p.title as string).startsWith("Sub-10"));
+    const id = encodeURIComponent(rd.id);
+    const pages: [string, () => Promise<React.ReactElement>][] = [
+      ["sources", async () => (await import("@/app/(app)/sources/page")).default()],
+      ["analyze", async () => (await import("@/app/(app)/analyze/page")).default()],
+      ["projects", async () => (await import("@/app/(app)/projects/page")).default()],
+      ...(["criteria", "narrative", "risks"] as const).map((tab): [string, () => Promise<React.ReactElement>] =>
+        [`project ${tab}`, async () => (await import("@/app/(app)/projects/[id]/page")).default({ params: Promise.resolve({ id }), searchParams: Promise.resolve({ tab }) })]),
+      ["edit", async () => (await import("@/app/(app)/projects/[id]/edit/page")).default({ params: Promise.resolve({ id }) })],
+      ["expenditures", async () => (await import("@/app/(app)/expenditures/page")).default()],
+      ["evaluation", async () => (await import("@/app/(app)/evaluation/page")).default()],
+      ["audit", async () => (await import("@/app/(app)/audit/page")).default({ searchParams: Promise.resolve({}) })],
+      ["settings", async () => (await import("@/app/(app)/settings/page")).default()],
+    ];
+    const html: Record<string, string> = {};
+    for (const [name, render] of pages) html[name] = renderToString(await render());
+    // DUMP_HTML=<dir> writes each page for visual review (scripts/preview-pages.mjs)
+    if (process.env.DUMP_HTML) {
+      const { writeFileSync, mkdirSync } = await import("node:fs");
+      mkdirSync(process.env.DUMP_HTML, { recursive: true });
+      for (const [name, h] of Object.entries(html)) writeFileSync(path.join(process.env.DUMP_HTML, `${name.replace(" ", "-")}.html`), h);
+    }
+    expect(html["project narrative"]).toContain("9 ms");
+    expect(html["project narrative"]).toContain("is not in the cited evidence");
+    expect(html["expenditures"]).toContain("CRA expects time records");
+    expect(html["projects"]).toContain("Eligible");
   });
 });
