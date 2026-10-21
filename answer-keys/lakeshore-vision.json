@@ -1,0 +1,19 @@
+{
+  "company": "lakeshore-vision",
+  "taxYear": 2026,
+  "writtenBefore": "Written by hand from the seeded project table (PLAN 6.1) after the fixtures were generated and before any pipeline code existed. See git history.",
+  "projects": [
+    { "code": "A1", "title": "Low-latency defect detection on ARM", "jiraEpicKeys": ["LV-12"], "expected": "eligible",
+      "members": ["priya.n", "omar.k", "li.w", "sam.r", "ivan.p"],
+      "keySourceIds": ["LV-118#c1", "LV-124#c1", "LV-131#c1", "doc:a1-experiment-log", "slack:C02:1770832920.000100"] },
+    { "code": "A2", "title": "Few-shot defect detection on reflective metal", "jiraEpicKeys": ["LV-40"], "expected": "eligible",
+      "members": ["mei.c", "priya.n", "li.w", "ana.g", "sam.r"],
+      "keySourceIds": ["LV-151#c1", "LV-156#c1", "LV-163#c1", "doc:a2-results"] },
+    { "code": "A3", "title": "Stripe billing migration and usage pricing", "jiraEpicKeys": ["LV-60"], "expected": "not_eligible",
+      "members": ["dana.m", "kev.o", "felix.t"], "keySourceIds": [] },
+    { "code": "A4", "title": "Customer dashboard redesign", "jiraEpicKeys": ["LV-75"], "expected": "not_eligible",
+      "members": ["jo.p", "felix.t", "zoe.l"], "keySourceIds": [] },
+    { "code": "A5", "title": "Auto-labelling from customer feedback", "jiraEpicKeys": ["LV-90"], "expected": "borderline",
+      "members": ["raj.s", "priya.n"], "keySourceIds": ["LV-91#c1"] }
+  ]
+}

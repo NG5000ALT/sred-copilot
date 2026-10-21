@@ -1,0 +1,16 @@
+{
+  "company": "bayfront-bio",
+  "taxYear": 2026,
+  "writtenBefore": "Written by hand from the seeded project table (PLAN 6.2) after the fixtures were generated and before any pipeline code existed. See git history.",
+  "projects": [
+    { "code": "B1", "title": "Room-temperature stable lyophilized enzyme formulation", "jiraEpicKeys": ["BB-5"], "expected": "eligible",
+      "members": ["aisha.b", "tran.q", "omid.f", "marc.d"],
+      "keySourceIds": ["BB-6#c1", "BB-8#c1", "BB-11#c1", "BB-12#c1", "doc:nb-b1-run3"] },
+    { "code": "B2", "title": "Activity assay miniaturization to 384-well", "jiraEpicKeys": ["BB-20"], "expected": "borderline",
+      "members": ["sofia.r", "eli.m"], "keySourceIds": ["BB-21#c1", "BB-22#c1"] },
+    { "code": "B3", "title": "LIMS migration", "jiraEpicKeys": ["BB-30"], "expected": "not_eligible",
+      "members": ["ines.c", "lena.k"], "keySourceIds": [] },
+    { "code": "B4", "title": "Routine QC batch release testing", "jiraEpicKeys": ["BB-40"], "expected": "not_eligible",
+      "members": ["grace.o", "paul.n"], "keySourceIds": [] }
+  ]
+}
