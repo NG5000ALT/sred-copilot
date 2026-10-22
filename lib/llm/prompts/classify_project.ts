@@ -7,7 +7,7 @@ type Input = { project: { title: string; summary: string }; evidence: EvidenceFo
 
 export const classifyProject: Prompt<Input, ClassifyOutput> = {
   name: "classify_project",
-  version: 1,
+  version: 2,
   model: "main",
   maxTokens: 16000,
   toolName: "submit_assessment",
@@ -20,7 +20,9 @@ ${CRITERIA.map((c) => `- ${c.key}: ${c.question}`).join("\n")}
 Statutory exclusions (list one only if the project's core work is excluded, not because of a side task):
 ${EXCLUSIONS.value.map((e) => `- ${e}`).join("\n")}
 Routine engineering with known solutions, style or UX changes, data migrations and routine
-testing do not show technological uncertainty. Failed experiments support eligibility.
+testing do not show technological uncertainty. Score them low on uncertainty; they are not
+statutory exclusions, so leave exclusions empty for them. A billing or data migration is not
+"routine data collection". Failed experiments support eligibility.
 You do not decide eligibility; code applies the thresholds. Score only what the evidence shows.`,
   buildUser: ({ project, evidence, canLookUp }) =>
     `Project: ${project.title}\n${project.summary}\n\nEvidence (${evidence.length} items):\n\n` +

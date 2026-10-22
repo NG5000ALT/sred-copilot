@@ -79,7 +79,7 @@ export async function risk(ctx: Ctx) {
     if (sections.length) {
       const [assessment] = await repo.list("criteria_assessment", { project: p.id }, { orderBy: "version", desc: true, limit: 1 });
       const out = await runPrompt(craReviewer, {
-        project: { title: p.title, status: p.status }, criteria: criteriaText(assessment as Row | undefined),
+        project: { title: p.title, status: p.status }, taxYear: { start: taxYear.start, end: taxYear.end }, criteria: criteriaText(assessment as Row | undefined),
         sections: sections.sort((a, b) => a.line.localeCompare(b.line)).map((s) => ({ line: s.line, text: s.text })), evidence: evidence.map(toPrompt),
       }, { repo, taxYear: taxYear.id, project: p.id, inputIds: evidence.map((e) => e.external_id) });
       const known = new Set(evidence.map((e) => e.external_id));
