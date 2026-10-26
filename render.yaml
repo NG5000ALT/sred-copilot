@@ -7,7 +7,7 @@ services:
     name: sred-copilot
     runtime: node
     plan: starter
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm build
+    buildCommand: corepack pnpm install --frozen-lockfile && corepack pnpm build
     startCommand: pnpm start
     healthCheckPath: /
     envVars:
@@ -48,6 +48,6 @@ services:
 #    name: sred-copilot-worker
 #    runtime: node
 #    plan: starter
-#    buildCommand: corepack enable && pnpm install --frozen-lockfile
+#    buildCommand: corepack pnpm install --frozen-lockfile
 #    startCommand: pnpm worker
 #    envVars: (same as above, without the Clerk keys)
