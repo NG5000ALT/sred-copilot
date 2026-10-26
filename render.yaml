@@ -25,6 +25,14 @@ services:
         value: claude-haiku-5-5
       - key: MODEL_MAIN
         value: claude-sonnet-5-5
+      - key: NEXT_PUBLIC_CLERK_SIGN_IN_URL
+        value: /sign-in
+      - key: NEXT_PUBLIC_CLERK_SIGN_UP_URL
+        value: /sign-up
+      - key: NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
+        value: /
+      - key: NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL
+        value: /
       - { key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, sync: false }
       - { key: CLERK_SECRET_KEY, sync: false }
       - { key: SURREAL_URL, sync: false }
