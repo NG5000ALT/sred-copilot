@@ -31,3 +31,11 @@ Status as of 2026-10-21. Everything below "Done" is committed and covered by `pn
 - Specified-employee salary-base caps not applied in the estimate (noted on the page).
 - CPA "comment" feature not built; CPAs can read, resolve risks and export.
 - `scripts/generate-fixtures.ts` is deterministic templates, not Claude-generated, so it needs no key.
+
+## Submitted (2026-10-25)
+- Devpost submission done before the 11:59 PM ET deadline. Write-up source: `docs/devpost.md`; logo and thumbnail: `docs/logo/`; gallery: `docs/screenshots/`.
+- Live: https://sred-copilot.onrender.com (Render Blueprint from `render.yaml`, starter plan; Surreal Cloud; Clerk dev instance with Organizations and the two custom roles).
+- Render note: `corepack enable` fails there (read-only `/usr/bin`), so build and start use `corepack pnpm ...`.
+- Two live Lakeshore runs on Render matched the key except A5 (precision/recall 100%, citation support 100%, people F1 0.94 to 0.97, key-evidence recall 78% to 100%). In the second run A4 was ruled out as "no technological uncertainty" instead of the style-change exclusion.
+- Demo video: final cut at `C:\Users\grube\Downloads\SRED Copilot demo under 4 min.mp4`; raw recording in `Videos\Screen Recordings`.
+- Still open: rotate the Anthropic key, Era connector, Agent Memory. Keep Render, Surreal Cloud and Clerk running through Demo Day (2026-10-29, Toronto).
