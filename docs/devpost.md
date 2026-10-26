@@ -37,12 +37,12 @@ raise flags but can't change anything.
 To test it, we made 2 fictional companies and wrote an answer key for each before writing any pipeline
 code (the git history shows the order).
 
-| Metric | Lakeshore Vision (live run on Render) | Bayfront Biologics (2 CLI runs) |
+| Metric | Lakeshore Vision (2 live runs on Render) | Bayfront Biologics (2 CLI runs) |
 |---|---|---|
 | Eligibility precision / recall | 100% / 100% | 50% / 100% |
 | Citation support (checker) | 100% | 95% to 98% |
-| People F1 | 0.97 | 0.95 to 1.0 |
-| Key-evidence recall | 78% | 100% |
+| People F1 | 0.94 to 0.97 | 0.95 to 1.0 |
+| Key-evidence recall | 78% to 100% | 100% |
 
 It disagrees with our keys on 2 projects, and we left the keys as written:
 - A5, auto-labelling: the key says borderline; the pipeline says not eligible at 5/10, one point under
