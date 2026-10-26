@@ -1,83 +1,98 @@
 # SR&ED Copilot
 
-**Live app:** https://sred-copilot.onrender.com (sign up, create an organization, pick a demo company, click Analyze)
-**Code:** https://github.com/NG5000ALT/sred-copilot
+Live app: https://sred-copilot.onrender.com (sign up, create an organization, pick a demo company and click Analyze)
+Code: https://github.com/NG5000ALT/sred-copilot
 
 ## Inspiration
 Canadian startups claim SR&ED, the federal R&D tax credit, by writing a technical narrative (Form T661
-lines 242, 244, 246) and a salary breakdown. Most hire a consultant on a 10% to 30% contingency fee.
-A 20-person company with a $200,000 claim pays about $40,000. Bill C-15 (Royal Assent March 26, 2026)
-doubled the enhanced expenditure limit to $6M, so more companies can claim more, and CRA is reviewing
-with AI, so claims need to be defensible.
+lines 242, 244 and 246) and a salary breakdown. Most of them hire a consultant on a 10% to 30%
+contingency fee, so a 20-person company with a $200,000 claim pays about $40,000 just to get it written.
+Bill C-15 (Royal Assent March 26, 2026) doubled the enhanced expenditure limit to $6M, which means more
+companies can claim more; CRA is also reviewing claims with AI now, so a claim has to hold up.
 
 ## What it does
-For a founder or controller at a 5 to 30 person Canadian CCPC: connect Jira, Slack and documents
-(read-only), upload payroll, click Analyze. SR&ED Copilot finds candidate projects, scores them against
-the CRA criteria with cited evidence, drafts lines 242/244/246 where every sentence links to a ticket,
-message or notebook entry, estimates qualifying salary and the ITC, and flags what a CRA reviewer would
-challenge. The CPA reviews and files.
+It's built for the founder or controller at a 5 to 30 person Canadian CCPC. They connect Jira, Slack
+and their docs (read-only), upload payroll and click Analyze. SR&ED Copilot finds the candidate R&D
+projects, scores each one against the CRA criteria with cited evidence, and drafts lines 242/244/246
+where every sentence links back to a ticket, message or lab notebook entry. It also estimates
+qualifying salary and the tax credit, and flags what a CRA reviewer would push back on. A CPA reviews
+the draft and files it; the app never files anything.
 
 ## How we built it
-A Next.js app (App Router, TypeScript) queues an analysis job; a worker runs it in nine stages:
-ingest, tag, cluster, classify, draft, check, expenditures, risk, evaluate. A fast model tags source
-items and assigns them to projects (Jira epics seed the projects). The main model scores each project
-on the five CRA criteria with cited evidence and may make up to five read-only lookups; the
-eligible / not eligible decision itself is a rule in code, not a model call. Drafts are lists of cited
-sentences, and a deterministic checker rejects any sentence whose citation is missing, whose excerpt
-is not an exact substring of the source, or whose numbers do not appear in the cited record; if more
-than 10% fail, the draft is regenerated once and remaining failures stay visible. Expenditures,
-the 55% proxy and the ITC are computed in code from payroll and activity. A separate skeptical
-"CRA reviewer" prompt can only raise flags.
+The app is Next.js and TypeScript. Clicking Analyze queues a job, and a worker runs it in 9 stages:
+ingest, tag, cluster, classify, draft, check, expenditures, risk and evaluate.
 
-We tested it on two synthetic companies, with answer keys written and committed before any pipeline
-code existed (see the git history).
+A fast model tags each record and assigns it to a project (Jira epics seed the projects). The main
+model then scores each project on the 5 CRA criteria, citing evidence, and can make up to 5 read-only
+lookups for more. The eligible/not eligible call is a rule in our code; the model only supplies the
+scores.
 
-| Metric | Lakeshore Vision (live run on Render) | Bayfront Biologics (two CLI runs) |
+Drafts come back as lists of cited sentences. A checker (plain code, no model) rejects any sentence
+with a missing citation, an excerpt that isn't an exact substring of the source, or a number that isn't
+in the cited record. If more than 10% fail, the draft is regenerated once, and anything still failing
+stays visible to the reviewer. Expenditures, the 55% proxy and the tax credit are calculated in code
+from payroll and activity. Last, a separate "skeptical CRA reviewer" prompt reads the claim; it can
+raise flags but can't change anything.
+
+To test it, we made 2 fictional companies and wrote an answer key for each before writing any pipeline
+code (the git history shows the order).
+
+| Metric | Lakeshore Vision (live run on Render) | Bayfront Biologics (2 CLI runs) |
 |---|---|---|
 | Eligibility precision / recall | 100% / 100% | 50% / 100% |
 | Citation support (checker) | 100% | 95% to 98% |
 | People F1 | 0.97 | 0.95 to 1.0 |
 | Key-evidence recall | 78% | 100% |
 
-Two misses against the keys, reported rather than fixed by editing the keys:
-- **A5, auto-labelling** (key: borderline): the pipeline says not eligible, 5/10, one point under the
-  borderline line.
-- **B2, 384-well assay** (key: borderline): the pipeline says eligible, 8/10. The CRA-reviewer pass
-  raises two high flags against it, which a CPA would see.
+It disagrees with our keys on 2 projects, and we left the keys as written:
+- A5, auto-labelling: the key says borderline; the pipeline says not eligible at 5/10, one point under
+  the borderline line.
+- B2, 384-well assay: the key says borderline; the pipeline says eligible at 8/10. The CRA-reviewer
+  pass raises 2 high flags against it, so a CPA would see the problem.
 
 A Lakeshore run takes about 3.5 minutes and 110k tokens.
 
 ## Partner platforms
-- **SurrealDB**: one database for app data and the knowledge graph (evidence supports project, person worked_on project, claim cites evidence, version supersedes version). Immutable version chain plus freeze snapshot shows what was known when the claim was drafted. The live app runs on Surreal Cloud.
-- **Clerk**: organizations with owner, technical reviewer and CPA roles, enforced on the server for every page, route and action.
-- **Render**: one web service from `render.yaml`, with the job worker running in-process.
-- **Anthropic**: Claude Haiku 5.5 for tagging and assignment, Claude Sonnet 5.5 for classification, drafting and the reviewer pass; every call logged with prompt name, version and hash.
-- **Era (Eon)**: we built an MCP connector with a read-only tool allowlist, but did not get access in time to connect it. The demo runs on our synthetic fixtures instead.
+- SurrealDB: one database for both the app data and the knowledge graph (evidence supports a project, a person worked on a project, a claim cites evidence, a version supersedes the last one). Versions are never edited, and freezing a claim records which versions were current, so you can see what was known when it was drafted. The live app runs on Surreal Cloud.
+- Clerk: organizations with owner, technical reviewer and CPA roles, checked on the server for every page, route and action.
+- Render: one web service deployed from `render.yaml`, with the job worker running inside it.
+- Anthropic: Claude Haiku 5.5 for tagging and assignment; Claude Sonnet 5.5 for classifying, drafting and the reviewer pass. Every call is logged with the prompt name, version and hash.
+- Era (Eon): we built an MCP connector with a read-only tool allowlist, but we didn't get access in time to connect it, so the demo runs on our own synthetic data.
 
 ## Security and ethics
-1. **Read-only**: connectors have no write methods; MCP calls pass a read-only allowlist.
-2. **Tenant isolation**: every row carries the Clerk org id; the repository layer requires it and binds it on every query; tested.
-3. **Prompt injection**: source content is wrapped in `<source_item>` tags as untrusted data; agent lookups are capped at 5 and never write.
-4. **No invented evidence**: excerpts must be exact substrings; every sentence must cite; numbers must appear in cited evidence.
-5. **Conservative defaults**: thresholds are in code; borderline projects need a person to accept them.
-6. **Human in the loop**: nothing is filed; exports are marked draft; a CPA role exists.
-7. **Audit trail**: every model call logged with prompt version and hash; claim sections are immutable versions linked by `supersedes` edges; freezing records the head versions.
-8. **Data minimization**: emails and phone numbers stripped before model calls.
-9. **Deletion**: owners can hard-delete all org data from Settings.
-10. **Secrets**: environment variables only.
-11. **Rates carry sources**: each tax rate has a source URL and a verified flag; unverified ones are badged in the UI.
+1. Read-only: the connectors have no write methods, and MCP calls go through a read-only allowlist.
+2. Tenant isolation: every row carries the Clerk org id; the database layer requires it on every query, and there are tests for it.
+3. Prompt injection: source content goes into prompts wrapped in `<source_item>` tags as untrusted data; lookups are capped at 5 and can't write.
+4. No invented evidence: excerpts have to be exact substrings, every sentence has to cite something, and numbers have to appear in the cited evidence.
+5. Conservative defaults: the thresholds live in code, and a person has to accept any borderline project.
+6. Human in the loop: nothing gets filed, exports are marked as drafts, and there's a CPA role.
+7. Audit trail: every model call is logged with its prompt version and hash; claim sections are saved as new versions linked by `supersedes` edges, and freezing records the current ones.
+8. Data minimization: emails and phone numbers are stripped before anything goes to a model.
+9. Deletion: an owner can permanently delete all of the org's data from Settings.
+10. Secrets: environment variables only.
+11. Sourced rates: each tax rate has a source URL and a verified flag, and the UI badges the unverified ones.
 
 ## Challenges / what we learned
-- **Silent data loss.** SurrealDB escapes some record ids, and the model echoed them back unescaped, so 30 of 65 evidence items were silently dropped. We now give the model Jira epic keys instead of database ids.
-- **Checkers are stricter than people.** The number checker first treated names like `Cortex-A72`, `FP32` and `SOP-021` as numeric claims and failed good sentences. It now ignores names and accepts numbers from the cited record's title.
-- **Keep the boring work.** The tagger first dropped routine tickets, which left nothing to rule the dashboard redesign out with. Routine work is now kept and tagged "routine".
-- **Labels matter to a reviewer.** Routine engineering was labelled with a statutory exclusion it did not meet. The classifier now calls it low uncertainty instead; the live run confirms the fix.
-- **Writing the answer key first** kept us honest: two projects still disagree with it, and we report them.
+Our biggest bug was silent. SurrealDB escapes some record ids, the model echoed them back unescaped,
+and 30 of 65 evidence items just disappeared with no error. The fix was to give the model Jira epic
+keys instead of database ids.
+
+The checker was too strict at first. It read names like `Cortex-A72`, `FP32` and `SOP-021` as numeric
+claims and failed sentences that were fine; now it ignores names and accepts numbers from the cited
+record's title.
+
+The tagger also threw out routine tickets, which left nothing to rule the dashboard redesign out with.
+Now it keeps routine work and tags it "routine". Related to that, the classifier was labelling routine
+engineering with a statutory exclusion it didn't meet. It now calls it low uncertainty, and the live
+run confirmed the fix.
+
+Writing the answer keys before any pipeline code was the best decision we made. It meant we couldn't
+quietly move the target, which is why the 2 misses above are still in the table.
 
 ## Prior work and AI disclosure
-Planning documents were written before Build Week. No code existed before it; the git history shows
-the build. Claude Code wrote most of the code; the Claude API powers the product. All company data is
-synthetic: Lakeshore Vision Inc. and Bayfront Biologics Inc. are fictional.
+We wrote the planning documents before Build Week. No code existed before it, and the git history shows
+the build. Claude Code wrote most of the code, and the Claude API powers the product. All company data
+is synthetic; Lakeshore Vision Inc. and Bayfront Biologics Inc. are fictional.
 
 ## Team
 Nathan [surname], Matei [surname].
