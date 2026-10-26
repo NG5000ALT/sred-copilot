@@ -95,4 +95,4 @@ the build. Claude Code wrote most of the code, and the Claude API powers the pro
 is synthetic; Lakeshore Vision Inc. and Bayfront Biologics Inc. are fictional.
 
 ## Team
-Nathan [surname], Matei [surname].
+Nathan Gruber, Matei Florea.
