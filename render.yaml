@@ -8,7 +8,7 @@ services:
     runtime: node
     plan: starter
     buildCommand: corepack pnpm install --frozen-lockfile && corepack pnpm build
-    startCommand: pnpm start
+    startCommand: corepack pnpm start
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
